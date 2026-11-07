@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 64" width="336" height="64" role="img" aria-label="ViaProspera">
+  <rect width="64" height="64" rx="16" fill="#3152E4"/>
+  <path d="M15 34l12 12 22-26" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15 34l12 12 22-26" fill="none" stroke="#3152E4" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="80" y="46" font-family="Inter, Arial, Helvetica, sans-serif" font-size="40" letter-spacing="-1"><tspan font-weight="800" fill="#3152E4">Via</tspan><tspan font-weight="600" fill="#1A1A2E">Prospera</tspan></text>
+</svg>
