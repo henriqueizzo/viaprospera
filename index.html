@@ -617,6 +617,36 @@ a.chan:hover{border-color:var(--accent)}
 .sms-meta span.over{color:var(--warn);border-color:var(--warn)}
 .kv div b span.ct{display:inline-flex;font-size:12px;text-transform:none;letter-spacing:0;white-space:normal}
 .wa-body .mail th:first-child,.wa-body .mail td:first-child{display:none}
+
+/* ---------- v5: parar envios, login, auditoria, bloqueio, celular antigo ---------- */
+.stopbar{background:var(--crit);color:#fff;padding:10px 20px;display:flex;gap:12px;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-wrap:wrap;text-align:center}
+.stopbar[hidden]{display:none}
+.stopbar .btn{background:#fff;color:#B91C1C;border-color:#fff}
+.stopbar small{font-weight:500;opacity:.9;font-size:12px}
+.ct.antigo{color:var(--accent)}
+.chan.hold{border-style:dashed;background:var(--surface-2);margin-top:12px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:10px 24px}
+.chan.hold .ch{min-width:200px}
+.chan.hold dl{min-width:270px}
+.chan.hold p{flex:1;min-width:220px}
+.chan .hold-tag{align-self:flex-start;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--warn);background:var(--warn-bg);padding:2px 8px;border-radius:999px}
+body.login .topbar,body.login .sidebar,body.login .fb-btn,body.login .stopbar,body.login .gpanel{display:none!important}
+body.login .app{grid-template-columns:minmax(0,1fr)}
+body.login .content{padding:0}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg)}
+.login-card{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column;gap:14px}
+.login-card .lg-logo svg{height:30px;width:auto;display:block}
+.login-card h1{font-size:19px;font-weight:700;color:var(--ink)}
+.login-card p{font-size:13px;color:var(--muted)}
+.login-card label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:var(--muted)}
+.login-card .btn{justify-content:center;height:42px}
+.login-card .lg-links{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.login-card .lg-foot{font-size:11.5px;color:var(--muted-2);border-top:1px solid var(--border);padding-top:12px}
+.code6{display:flex;gap:8px;justify-content:space-between}
+.code6 input{width:46px;height:54px;text-align:center;font-size:22px;font-weight:700;padding:0}
+.ver{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:10px 0}
+.aud-t{font-weight:600;white-space:nowrap}
+.tbl td.wrap{white-space:normal}
+@media (max-width:520px){.code6 input{width:38px;height:48px}}
 </style>
 </head><body><a class="skip" href="#main">Pular para o conteúdo</a>
 <div class="topbar">
@@ -631,7 +661,7 @@ a.chan:hover{border-color:var(--accent)}
     </nav>
   </div>
   <div class="topbar-right">
-    <span class="badge-mock">Mockup v4 · dados fictícios</span>
+    <span class="badge-mock">Mockup v5 · dados fictícios</span>
     <div class="search" data-g="3" data-gt="Busca por placa|Digite uma placa e tecle Enter para abrir o veículo. Atalho: tecla /">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="gsearch" type="search" placeholder="Buscar placa" aria-label="Buscar placa" autocomplete="off">
@@ -646,8 +676,10 @@ a.chan:hover{border-color:var(--accent)}
   </div>
 </div>
 
+<div class="stopbar" id="stopbar" hidden role="alert"><span>Todos os envios estão parados.</span><small id="stopbar-who">Parado por Operação Próspera · hoje 10:52 · nenhuma mensagem sai por WhatsApp, SMS ou e-mail.</small><button class="btn btn-sm js-stopall">Retomar os envios</button></div>
+
 <div class="app" id="app">
-  <aside class="sidebar g-in" id="sidebar" data-g="7" data-gt="Menu do backoffice|Operação (Painel, Bases, Placas, Conversas), Notificação (Régua, Disparos), Relatórios (Consultas) e Sistema (Configurações). Os números são filas abertas.">
+  <aside class="sidebar g-in" id="sidebar" data-g="7" data-gt="Menu do backoffice|Operação (Painel, Bases, Placas, Conversas), Notificação (Régua, Disparos), Relatórios (Consultas) e Sistema (Configurações, Auditoria e Lista de bloqueio). Os números são filas abertas.">
     <div class="grp"><span>Operação</span>
       <a href="#painel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Painel</a>
       <a href="#bases"><svg viewBox="0 0 24 24"><path d="M12 21V9m0 0-4 4m4-4 4 4M4 4h16"/></svg>Bases<span class="count" id="cnt-bases">2 hoje</span></a>
@@ -663,6 +695,8 @@ a.chan:hover{border-color:var(--accent)}
     </div>
     <div class="grp"><span>Sistema</span>
       <a href="#configuracoes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Configurações</a>
+      <a href="#auditoria"><svg viewBox="0 0 24 24"><path d="M9 5h6m-7 0H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2zm0 7h6m-6 4h4"/></svg>Auditoria</a>
+      <a href="#bloqueio"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>Lista de bloqueio<span class="count" id="cnt-bloq">6</span></a>
     </div>
     <div class="sb-foot">
       <div class="sb-info"><b>Way Brasil · Way 262</b><br>Fase 1 · notificação por arquivo<br>Última base: hoje 09:02 · corte 9h</div>
@@ -700,6 +734,7 @@ a.chan:hover{border-color:var(--accent)}
           <a class="chan" href="#placas?contato=email"><div class="ch"><span class="ct email"><i></i>E-mail</span><span class="small muted">só telefone fixo, com e-mail</span></div><div class="big">750 <small>placas · 6%</small></div><dl><div><dt>Enviados</dt><dd>1.100</dd></div><div><dt>Entregues</dt><dd>98,0%</dd></div><div><dt>Abertos</dt><dd>31,0%</dd></div></dl><p>Fixo não recebe WhatsApp nem SMS. <span class="conf">métricas a confirmar com a WeTalk</span></p></a>
           <a class="chan none" href="#placas?contato=none"><div class="ch"><span class="ct none"><i></i>Sem canal</span><span class="small muted">fixo sem e-mail ou nenhum contato</span></div><div class="big">910 <small>placas · 7%</small></div><dl><div><dt>Enviados</dt><dd class="muted">0</dd></div><div><dt>Avisadas</dt><dd class="muted">não</dd></div><div><dt>Destino</dt><dd>Way</dd></div></dl><p>Não são avisadas: voltam para a Way na base enriquecida.</p></a>
         </div>
+        <a class="chan hold" href="#placas?contato=antigo" data-g="19" data-gt="Celular em formato antigo|Telefone de 10 dígitos que parece celular, mas está sem o 9 na frente. Quase sempre é cadastro antigo de empresa. Fica parado, sem envio, até a decisão: e-mail, SMS com o 9 na frente, ou os dois."><div class="ch"><span class="ct antigo"><i></i>Celular em formato antigo</span><span class="small muted">10 dígitos, falta o 9 · maioria empresa</span></div><div class="big">480 <small>placas · contadas nas 910 sem canal</small></div><dl><div><dt>Enviados</dt><dd class="muted">0</dd></div><div><dt>Com e-mail</dt><dd>455</dd></div><div><dt>Situação</dt><dd>parado</dd></div></dl><span class="hold-tag">A decidir</span><p>Sem envio até a decisão: e-mail, SMS com o 9 na frente, ou os dois.</p></a>
       </div>
 
       <div class="grid-12">
@@ -798,13 +833,13 @@ a.chan:hover{border-color:var(--accent)}
       <div class="filters" data-g="10" data-gt="Filtros|Placa, grupo da base, tipo de contato encontrado (que define o canal: WhatsApp, SMS ou e-mail) e status da régua. Os filtros viram etiquetas e a contagem atualiza na hora.">
         <input type="search" placeholder="Buscar placa" aria-label="Buscar placa" id="f-placa">
         <select aria-label="Grupo" id="f-grupo"><option value="">Todos os grupos</option><option value="G1">G1 · só placa</option><option value="G2">G2 · avisado pela CNH Brasil</option><option value="G3">G3 · cadastrado no portal da Way</option></select>
-        <select aria-label="Contato" id="f-contato"><option value="">Todo tipo de contato</option><option value="wa">Celular com WhatsApp</option><option value="sms">Celular sem WhatsApp (SMS)</option><option value="email">Só telefone fixo (e-mail)</option><option value="none">Sem canal</option></select>
-        <select aria-label="Status" id="f-status"><option value="">Todos os status</option><option>Na régua</option><option>Regularizada</option><option>Pausada</option><option>Encaminhada à Way</option><option>Sem canal</option></select>
+        <select aria-label="Contato" id="f-contato"><option value="">Todo tipo de contato</option><option value="wa">Celular com WhatsApp</option><option value="sms">Celular sem WhatsApp (SMS)</option><option value="email">Só telefone fixo (e-mail)</option><option value="antigo">Celular em formato antigo (a decidir)</option><option value="none">Sem canal</option></select>
+        <select aria-label="Status" id="f-status"><option value="">Todos os status</option><option>Na régua</option><option>Regularizada</option><option>Pausada</option><option>Encaminhada à Way</option><option>Aguardando decisão</option><option>Sem canal</option></select>
         <span class="spacer"></span><span class="muted small" id="f-count"></span>
       </div>
       <div class="fchips" id="fchips" data-g="11" data-gt="Filtros ativos|Cada etiqueta é um filtro aplicado. Clique no × para remover, ou em 'Limpar' para voltar à lista completa."></div>
       <div class="bulk" id="bulk" data-g="12" data-gt="Ações em lote|Aparece quando você marca placas. Dá baixa manual (quando a Way confirma fora da base), reenvia o aviso, pausa a régua ou exporta só as marcadas."><span id="bulk-n">0 selecionadas</span><div class="actions"><button class="btn btn-sm btn-ok" id="bulk-paid">Marcar como pagas</button><button class="btn btn-sm" id="bulk-resend">Reenviar aviso</button><button class="btn btn-sm" id="bulk-pause">Pausar régua</button><button class="btn btn-sm" id="bulk-export">Exportar seleção</button><button class="btn btn-sm btn-ghost" id="bulk-clear">Limpar</button></div></div>
-      <div data-g="13" data-gt="Lista de placas|Clique no título de uma coluna para ordenar; na linha, para abrir o detalhe. 'Contato' mostra o que o enriquecimento achou e, por consequência, o canal: celular com WhatsApp, celular sem WhatsApp (SMS), só telefone fixo (e-mail) ou sem canal.">
+      <div data-g="13" data-gt="Lista de placas|Clique no título de uma coluna para ordenar; na linha, para abrir o detalhe. 'Contato' mostra o que o enriquecimento achou e, por consequência, o canal: celular com WhatsApp, celular sem WhatsApp (SMS), só telefone fixo (e-mail), celular em formato antigo (parado, a decidir) ou sem canal.">
       <div class="tbl-wrap"><table class="tbl" id="tbl-placas"><thead><tr><th style="width:36px"><input type="checkbox" class="ck" id="ck-all" aria-label="Selecionar todas"></th><th data-sort="placa">Placa</th><th>Proprietário</th><th data-sort="grupo">Grupo</th><th data-sort="contato">Contato</th><th class="r" data-sort="n">Passagens</th><th class="r" data-sort="total">Total</th><th>Vence</th><th>Etapa</th><th data-sort="status">Status</th><th></th></tr></thead><tbody></tbody></table></div>
       </div>
     </section>
@@ -846,6 +881,7 @@ a.chan:hover{border-color:var(--accent)}
           <div class="card" data-g="14" data-gt="Prévia da mensagem|Como o motorista vê a mensagem em cada canal. Escolha o grupo (G1, G2, G3) e o canal (WhatsApp, SMS, e-mail). As partes em azul são variáveis preenchidas por placa.">
             <div class="card-head"><div><h3 id="tpl-title">Template · D+1 Notificação inicial</h3><div class="sub" id="tpl-sub">categoria utilidade · aprovação da Meta via WeTalk</div></div><span class="chip ok" id="tpl-chip">Aprovado</span></div>
             <div class="seltabs" data-g="15" data-gt="Grupo e canal|São três copies por etapa: G1 (sem vínculo) didática e com sinais de confiança; G2 (CNH Brasil) chama atenção e reforça o aviso ignorado no app; G3 (cadastrado na Way) recuperação direta. SMS e e-mail têm versões próprias."><div class="ctabs" id="grp-tabs"><span class="lbl">Grupo</span><button class="on" data-grp="G1">G1 · sem vínculo</button><button data-grp="G2">G2 · CNH Brasil</button><button data-grp="G3">G3 · cadastrado na Way</button></div><div class="ctabs" id="chan-tabs"><span class="lbl">Canal</span></div></div>
+            <div class="ver" data-g="21" data-gt="Versão e aprovação|Cada texto tem versão. Só a versão aprovada é enviada. Mudou o texto, nasce uma versão nova, que espera a aprovação de quem responde pelo conteúdo (e da Meta, no WhatsApp)."><span class="chip ok" id="ver-chip">versão 3 · aprovada</span><span id="ver-txt">por Darío em 06/11/2026</span><button class="link-btn" id="btn-ver">Ver histórico</button></div>
             <div id="tpl-preview"></div>
             <div class="tpl-edit" data-g="16" data-gt="Editar texto|Altere o texto do grupo e canal selecionados e veja a prévia mudar. Limite de 1.000 caracteres no WhatsApp; no SMS cada 160 caracteres contam como uma parte (e uma cobrança); o e-mail tem assunto e corpo. Mensagens novas precisam de nova aprovação da Meta (1 a 2 dias)."><label class="small muted" for="tpl-text" id="tpl-label">Texto da mensagem</label><textarea id="tpl-text" aria-label="Texto da mensagem"></textarea><div class="cnt" id="tpl-cnt"></div></div>
             <div class="vars" id="tpl-vars" data-g="17" data-gt="Variáveis|Campos que o sistema preenche por placa: nome, placa, quantidade, total, pedágio e data da última passagem, vencimento, dias restantes e o link do portal."></div>
@@ -860,7 +896,7 @@ a.chan:hover{border-color:var(--accent)}
               <label>Celular sem WhatsApp<select><option>SMS comum (com link do portal)</option></select></label>
               <label>Só telefone fixo<select><option>E-mail, se o enriquecimento achou</option><option>Devolver à Way</option></select></label>
               <label>Fixo sem e-mail ou nenhum contato<select><option>Sem canal: devolver à Way na base enriquecida</option></select></label>
-              <label>Sem base de retorno até o corte<select><option>Segurar reforços (D+3 em diante)</option><option>Enviar mesmo assim</option></select></label>
+              <label>Sem base de retorno até o corte<input value="Segurar reforços (D+3 em diante) e avisar o gestor" readonly></label>
               <label>Alerta de multa antes do prazo<select><option>7 dias antes (16/11 → 09/11)</option><option>5 dias antes</option><option>3 dias antes</option></select></label>
             </div>
           </div>
@@ -872,7 +908,7 @@ a.chan:hover{border-color:var(--accent)}
     <section id="view-disparos" hidden>
       <div class="page-head">
         <div><h1>Disparos</h1><p>Cada lote enviado, por etapa e canal, com entrega, leitura, cliques e respostas. Os três canais (WhatsApp, SMS e e-mail) saem pela WeTalk, que devolve o status de cada mensagem.</p></div>
-        <div class="actions"><label data-g="9" data-gt="Período|Muda o período dos indicadores e da lista de lotes."><select aria-label="Período" id="disp-periodo"><option>Desde o início (28/10)</option><option>Últimos 7 dias</option><option>Hoje</option></select></label><button class="btn" id="btn-disp-export" data-g="10" data-gt="Exportar|Baixa os lotes com as métricas por canal, para a Way e para o relatório mensal."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar</button></div>
+        <div class="actions"><button class="btn btn-danger js-stopall" data-g="20" data-gt="Parar todos os envios|Botão de emergência: segura na hora tudo que ainda não saiu, nos três canais. Pede confirmação, fica registrado na auditoria e mostra uma faixa vermelha no topo até alguém com perfil de gestor retomar.">Parar todos os envios</button><label data-g="9" data-gt="Período|Muda o período dos indicadores e da lista de lotes."><select aria-label="Período" id="disp-periodo"><option>Desde o início (28/10)</option><option>Últimos 7 dias</option><option>Hoje</option></select></label><button class="btn" id="btn-disp-export" data-g="10" data-gt="Exportar|Baixa os lotes com as métricas por canal, para a Way e para o relatório mensal."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar</button></div>
       </div>
       <div class="hero-row" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))" data-g="11" data-gt="Indicadores de entrega|Enviados, entregues, lidos, cliques no link do portal, respostas e falhas. É o que Darío chamou de 'operação baseada em dados'.">
         <div class="tile"><div class="label">Enviados</div><div class="value">31.420</div><div class="delta">11.730 placas · 3 canais</div></div>
@@ -1004,7 +1040,7 @@ a.chan:hover{border-color:var(--accent)}
 
     <!-- ===================== CONFIGURAÇÕES ===================== -->
     <section id="view-configuracoes" hidden>
-      <div class="page-head"><div><h1>Configurações</h1><p>Concessionária e prazos, bases e layout, canais e fornecedores, usuários. Mudanças só valem depois de salvar.</p></div></div>
+      <div class="page-head"><div><h1>Configurações</h1><p>Concessionária e prazos, bases e layout, canais e fornecedores, usuários. Mudanças só valem depois de salvar e ficam registradas na <a href="#auditoria">auditoria</a>.</p></div><div class="actions"><button class="btn btn-danger js-stopall" data-g="20" data-gt="Parar todos os envios|Botão de emergência: segura na hora tudo que ainda não saiu, nos três canais. Pede confirmação, fica registrado na auditoria e mostra uma faixa vermelha no topo até alguém com perfil de gestor retomar.">Parar todos os envios</button></div></div>
       <div class="tabs" id="cfg-tabs" data-g="9" data-gt="Abas|Concessionária e prazos, Bases e layout (como o arquivo chega e o corte), Canais e fornecedores (WeTalk para WhatsApp, SMS e e-mail; fontes de dados) e Usuários."><button class="on" data-tab="cfg-conc">Concessionária e prazos</button><button data-tab="cfg-bases">Bases e layout</button><button data-tab="cfg-int">Canais e fornecedores</button><button data-tab="cfg-users">Usuários</button></div>
       <div id="cfg-conc" class="card" data-g="10" data-gt="Dados da concessionária|Razão social, regulador, modelo de serviço, link do portal de regularização (vai em toda mensagem), número oficial do WhatsApp, prazos e o texto de privacidade.">
         <div class="form cfg-form">
@@ -1018,7 +1054,6 @@ a.chan:hover{border-color:var(--accent)}
           <label>Data-limite extraordinária<input value="16/11/2026"></label>
           <label>Prazo regular por passagem<input value="30 dias"></label>
           <label>Desconto / negociação<select><option>A definir com a Way</option><option>Sem desconto</option><option>20% à vista</option></select></label>
-          <label>Ligação automatizada (sem WhatsApp)<select><option>Aguardando aprovação da Way</option><option>Aprovada</option><option>Não usar</option></select></label>
           <label class="full">Texto de privacidade enviado no primeiro contato<textarea rows="3">A Way Brasil, com apoio da Próspera, usa seus dados de contato apenas para avisar sobre passagens em aberto nos pórticos free flow, conforme a LGPD. Para não receber mais avisos, responda SAIR.</textarea></label>
         </div>
       </div>
@@ -1029,10 +1064,12 @@ a.chan:hover{border-color:var(--accent)}
             <label>Recebimento<select><option>E-mail → upload manual (fase 1)</option><option>Pasta SFTP (fase 2)</option><option>API da concessionária (fase 2)</option></select></label>
             <label>Horário de corte<input value="09:00"></label>
             <label>Quem sobe a base<select><option>Operação Próspera</option><option>Financeiro da Way (acesso próprio)</option></select></label>
-            <label>Se a base de retorno não chegar<select><option>Segurar reforços e avisar por e-mail</option><option>Enviar mesmo assim</option></select></label>
+            <label data-g="16" data-gt="Base de retorno atrasada|Regra fixa, sem opção de enviar mesmo assim: se a base de quem pagou não chega até o corte, os reforços esperam e o gestor é avisado. Assim ninguém que já pagou recebe cobrança.">Se a base de retorno não chegar<input value="Reforços esperam · gestor avisado" readonly></label>
             <label>Formato aceito<input value="CSV, XLSX · até 50 MB · 500 mil linhas" readonly></label>
+            <label>Quem é avisado do atraso<select><option>Gestor Próspera + Financeiro da Way (e-mail)</option><option>Só o gestor Próspera</option></select></label>
             <label>Baixa manual pela Way<select><option>Permitida (perfil Concessionária)</option><option>Só por base de retorno</option></select></label>
           </div>
+          <div class="note" style="margin-top:14px">Quem pagou não é avisado. Por isso não existe a opção de enviar sem a base de retorno: enquanto ela não chega, os reforços (D+3 em diante) ficam segurados e o lote aparece em Disparos como "Segurado". Quando a base entra, o sistema tira quem pagou e solta o lote.</div>
         </div>
         <div class="card" data-g="13" data-gt="Layout dos arquivos|Colunas de entrada (passagens), de retorno (pagamentos) e de saída (base enriquecida). O mapeamento na importação usa estes nomes.">
           <div class="card-head"><div><h3>Layout dos arquivos</h3></div></div>
@@ -1063,7 +1100,7 @@ status_aviso, data_ultimo_aviso</div></div>
       </div>
       <div id="cfg-int" class="stack" hidden>
         <div class="card" data-g="14" data-gt="Canais e fornecedores|Tudo que o Pro Vias usa por fora: a WeTalk para os três canais (WhatsApp, SMS e e-mail), as fontes de dados por placa, o gateway de pagamento (fase 2) e o parcelamento de débitos veiculares (fase 3).">
-          <div class="card-head"><div><h3>Canais e fornecedores</h3><div class="sub">o Pro Vias orquestra; quem envia e consulta são os parceiros</div></div></div>
+          <div class="card-head"><div><h3>Canais e fornecedores</h3><div class="sub">o Pro Vias orquestra; quem envia e consulta são os parceiros · senhas e chaves ficam no cofre do servidor, nunca na tela</div></div><button class="btn btn-sm" id="btn-testar" data-g="17" data-gt="Testar conexões|Faz uma chamada de teste em cada fornecedor, sem enviar mensagem nem gastar consulta, e mostra quem respondeu.">Testar conexões</button></div>
           <div class="srv">
             <div class="row"><div><b>WhatsApp · WeTalk</b> <span class="fase">canal 1</span><span>modelo de mensagem (HSM) aprovado na Meta · 1.000 caracteres · <code>api.wetalkie.net/callcenter/hsm/send/{id do HSM}</code></span></div><span>Para celular com WhatsApp. Retorno de status por webhook <code>WHATSAPP_TRIGGER_UPDATED</code>. Limite da Meta: 80 mensagens por segundo. Integração em andamento (Antônio, Juliano, Eduardo).</span><span class="chip info">Integrando</span></div>
             <div class="row"><div><b>SMS · WeTalk</b> <span class="fase">canal 2</span><span>SMS comum, que aceita link · 160 caracteres por parte · <code>api.wetalkie.net/v1/sms/send</code></span></div><span>Para celular sem WhatsApp e como reserva quando o WhatsApp falha. Chega em 20 a 40 min; status final da operadora em até 24 h; sem confirmação de leitura.</span><span class="chip info">Integrando</span></div>
@@ -1193,6 +1230,74 @@ status_aviso, data_ultimo_aviso</div></div>
       </div>
     </section>
 
+    <!-- ===================== AUDITORIA ===================== -->
+    <section id="view-auditoria" hidden>
+      <div class="page-head">
+        <div><h1>Auditoria</h1><p>Quem fez o quê e quando. O registro é só de leitura: ninguém apaga nem altera, nem o gestor.</p></div>
+        <div class="actions"><button class="btn" id="btn-aud-export" data-g="9" data-gt="Exportar|Baixa os registros com os filtros atuais. A própria exportação entra na auditoria."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar</button></div>
+      </div>
+      <div class="filters" data-g="10" data-gt="Filtros|Por pessoa, por tipo de ação e por período. Use para responder 'quem exportou dado pessoal' ou 'quem mudou esta configuração'.">
+        <select aria-label="Pessoa" id="aud-quem"><option value="">Todas as pessoas</option></select>
+        <select aria-label="Tipo de ação" id="aud-tipo"><option value="">Todo tipo de ação</option></select>
+        <select aria-label="Período" id="aud-periodo"><option>Últimos 7 dias</option><option>Hoje</option><option>Desde o início (28/10)</option></select>
+        <span class="spacer"></span><span class="muted small" id="aud-count"></span>
+      </div>
+      <div data-g="11" data-gt="Registros|Cada linha é uma ação: entrada no sistema, exportação de base com dado pessoal, abertura de dado completo, mudança de configuração, pausa de lote, baixa manual e parada geral dos envios.">
+        <div class="tbl-wrap"><table class="tbl" id="tbl-aud"><thead><tr><th>Quando</th><th>Quem</th><th>Perfil</th><th>Ação</th><th>Detalhe</th><th>Onde</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <p class="small muted" style="margin-top:12px">Dado pessoal aparece mascarado nas telas. Para ver o dado completo a pessoa precisa de perfil com essa permissão e informar o motivo, que fica gravado aqui.</p>
+    </section>
+
+    <!-- ===================== LISTA DE BLOQUEIO ===================== -->
+    <section id="view-bloqueio" hidden>
+      <div class="page-head">
+        <div><h1>Lista de bloqueio</h1><p>Quem pediu para não receber mais avisos. A lista é única: quem entra aqui não recebe por WhatsApp, nem por SMS, nem por e-mail.</p></div>
+        <div class="actions"><button class="btn btn-primary" id="btn-bloq-add" data-g="9" data-gt="Incluir na lista|Inclusão manual, quando o pedido chega por fora das mensagens (telefone, ouvidoria, pedido feito à concessionária).">Incluir na lista</button></div>
+      </div>
+      <div class="note" style="margin-bottom:14px">A placa de quem está bloqueado sai da régua e volta para a Way na base enriquecida, marcada como "bloqueado". A dívida continua existindo; só o aviso pela Próspera é que para.</div>
+      <div class="filters" data-g="10" data-gt="Filtros|Busca por placa ou contato e filtra pela origem do pedido.">
+        <input type="search" placeholder="Buscar placa ou contato" aria-label="Buscar" id="bloq-q">
+        <select aria-label="Origem" id="bloq-orig"><option value="">Todas as origens</option><option>Resposta SAIR</option><option>Pedido à concessionária</option><option>Inclusão manual</option></select>
+        <span class="spacer"></span><span class="muted small" id="bloq-count"></span>
+      </div>
+      <div data-g="11" data-gt="Bloqueados|Contato mascarado, placa, de onde veio o pedido, quando e quem registrou. Retirar alguém da lista é só para o perfil de gestor e pede motivo.">
+        <div class="tbl-wrap"><table class="tbl" id="tbl-bloq"><thead><tr><th>Contato</th><th>Tipo</th><th>Placa</th><th>Origem</th><th>Chegou por</th><th>Incluído em</th><th>Por</th><th></th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ===================== ENTRAR (login + segundo fator) ===================== -->
+    <section id="view-entrar" hidden>
+      <div class="login-wrap">
+        <div class="login-card" data-step="1" data-g="9" data-gt="Entrar|Primeiro passo: e-mail e senha. Depois de 5 tentativas erradas o acesso fica bloqueado por 15 minutos (valores a definir).">
+          <div class="lg-logo" id="lg-logo-1"></div>
+          <h1>Entrar no Pro Vias</h1>
+          <p>Use o e-mail de trabalho. O acesso é pessoal e fica registrado.</p>
+          <label>E-mail<input id="lg-email" type="email" value="operacao@prospera.com.br" autocomplete="off"></label>
+          <label>Senha<input id="lg-senha" type="password" placeholder="Sua senha" autocomplete="off"></label>
+          <button class="btn btn-primary" id="lg-entrar">Continuar</button>
+          <div class="lg-links"><button class="link-btn" id="lg-esqueci" data-g="10" data-gt="Esqueci a senha|Manda um link para o e-mail cadastrado. O link vale por pouco tempo e só serve uma vez.">Esqueci a senha</button><a class="link-btn" href="#painel">Voltar ao mockup</a></div>
+          <div class="lg-foot">Tela de mockup: qualquer senha passa. Dados fictícios.</div>
+        </div>
+        <div class="login-card" data-step="2" hidden data-g="11" data-gt="Segundo fator|Segundo passo: um código de 6 dígitos, enviado na hora. Sem ele a senha sozinha não abre o sistema.">
+          <div class="lg-logo" id="lg-logo-2"></div>
+          <h1>Código de verificação</h1>
+          <p>Enviamos um código de 6 dígitos para <b>o***@prospera.com.br</b>. Ele vale por 10 minutos.</p>
+          <div class="code6" id="lg-code"><input inputmode="numeric" maxlength="1" aria-label="Dígito 1"><input inputmode="numeric" maxlength="1" aria-label="Dígito 2"><input inputmode="numeric" maxlength="1" aria-label="Dígito 3"><input inputmode="numeric" maxlength="1" aria-label="Dígito 4"><input inputmode="numeric" maxlength="1" aria-label="Dígito 5"><input inputmode="numeric" maxlength="1" aria-label="Dígito 6"></div>
+          <button class="btn btn-primary" id="lg-validar">Entrar</button>
+          <div class="lg-links"><button class="link-btn" id="lg-reenviar">Reenviar código</button><button class="link-btn" data-lg-back>Voltar</button></div>
+          <div class="lg-foot">Como o código chega (e-mail, aplicativo ou SMS) ainda está a definir.</div>
+        </div>
+        <div class="login-card" data-step="3" hidden>
+          <div class="lg-logo" id="lg-logo-3"></div>
+          <h1>Esqueci a senha</h1>
+          <p>Informe o e-mail da sua conta. Se ele existir, você recebe um link para criar uma senha nova.</p>
+          <label>E-mail<input id="lg-email-rec" type="email" value="operacao@prospera.com.br" autocomplete="off"></label>
+          <button class="btn btn-primary" id="lg-enviar-link">Enviar link</button>
+          <div class="lg-links"><button class="link-btn" data-lg-back>Voltar</button></div>
+        </div>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -1217,7 +1322,7 @@ const NS='http://www.w3.org/2000/svg';
 const svgEl=(tag,attrs,txt)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;return e;};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-const TITLES={painel:'Painel',bases:'Bases',placas:'Placas',conversas:'Conversas e ocorrências',regua:'Régua de notificação',disparos:'Disparos',consultas:'Relatório de consultas',configuracoes:'Configurações',motorista:'Portal do motorista',whatsapp:'Simulador de mensagens'};
+const TITLES={painel:'Painel',bases:'Bases',placas:'Placas',conversas:'Conversas e ocorrências',regua:'Régua de notificação',disparos:'Disparos',consultas:'Relatório de consultas',configuracoes:'Configurações',motorista:'Portal do motorista',whatsapp:'Simulador de mensagens',auditoria:'Auditoria',bloqueio:'Lista de bloqueio',entrar:'Entrar'};
 const VIEWS=Object.keys(TITLES);
 const PORTAL_LINK='portal da Way Brasil';
 
@@ -1227,9 +1332,9 @@ const ENVIADOS=[3120,2980,2640,2210,1540,980,2860,3410,3120,2890,1870];
 const REGULAR=[0,90,210,260,240,110,70,190,300,310,160];
 const FUNNEL=[['Placas na base da Way',12640],['Com proprietário e contato',11730],['Avisadas (3 canais)',11730],['Entregues',10980],['Leram o aviso',6900],['Clicaram no link do portal',2610],['Regularizadas (baixa da Way)',1940]];
 const GRUPOS=[['G1 · sem vínculo (só placa)',7900,16.8,'ok'],['G2 · avisado pelo app CNH Brasil',2900,9.1,'warn'],['G3 · cadastrado na Way',1840,21.5,'ok']];
-const STATUS={'Na régua':'info','Regularizada':'ok','Pausada':'warn','Encaminhada à Way':'viol','Sem canal':''};
-const CT={wa:['wa','Celular com WhatsApp'],sms:['sms','Celular sem WhatsApp · SMS'],email:['email','Só telefone fixo · e-mail'],none:['none','Sem canal']};
-const CANAL={wa:'WhatsApp',sms:'SMS',email:'E-mail',none:'nenhum'};
+const STATUS={'Na régua':'info','Regularizada':'ok','Pausada':'warn','Encaminhada à Way':'viol','Aguardando decisão':'warn','Sem canal':''};
+const CT={wa:['wa','Celular com WhatsApp'],sms:['sms','Celular sem WhatsApp · SMS'],email:['email','Só telefone fixo · e-mail'],antigo:['antigo','Celular em formato antigo · a decidir'],none:['none','Sem canal']};
+const CANAL={wa:'WhatsApp',sms:'SMS',email:'E-mail',antigo:'a decidir',none:'nenhum'};
 const PL=(placa,nome,grupo,contato,n,total,venc,etapa,status,fonte,tel)=>({placa,nome,grupo,contato,n,total,venc,etapa,status,fonte,tel});
 const TARIFA=12.90;
 const PLACAS=[
@@ -1253,7 +1358,12 @@ const PLACAS=[
  PL('MSQ2F60','O**** B. T****','G3','email',2,25.80,'16/11','encerrada','Regularizada','dados da Way','+55 67 3***-5126 (fixo)'),
  PL('WKT7H33','N**** A. C****','G2','email',1,12.90,'16/11','D+1 notificação','Na régua','Score Positivo · hoje','+55 67 3***-0348 (fixo)'),
  PL('DFS4J98','E**** R. G****','G1','none',4,51.60,'16/11','sem canal','Sem canal','Score Positivo · 30/10 · fixo sem e-mail','+55 67 3***-6614 (fixo)'),
- PL('PXN6L27','Mercado C*** Ltda.','G1','none',9,116.10,'16/11','sem canal','Sem canal','Score Positivo · 28/10 · PJ · fixo sem e-mail','+55 67 3***-2077 (fixo)')
+ PL('PXN6L27','Mercado C*** Ltda.','G1','none',9,116.10,'16/11','sem canal','Sem canal','Score Positivo · 28/10 · PJ · fixo sem e-mail','+55 67 3***-2077 (fixo)'),
+ PL('TRN5C84','Transportadora N*** Ltda.','G1','antigo',23,296.70,'16/11','parada · a decidir','Aguardando decisão','Score Positivo · 28/10 · PJ','67 8***-4410 (10 dígitos, falta o 9)'),
+ PL('CXB2R76','Construtora A*** S.A.','G1','antigo',8,103.20,'16/11','parada · a decidir','Aguardando decisão','Score Positivo · 29/10 · PJ','67 9***-2231 (10 dígitos, falta o 9)'),
+ PL('FZD9M12','Distribuidora P*** Eireli','G1','antigo',14,180.60,'16/11','parada · a decidir','Aguardando decisão','Score Positivo · 30/10 · PJ · sem e-mail','67 8***-9057 (10 dígitos, falta o 9)'),
+ PL('GQE3V58','Auto Peças R*** Ltda.','G2','antigo',5,64.50,'16/11','parada · a decidir','Aguardando decisão','Score Positivo · 03/11 · PJ','67 9***-6170 (10 dígitos, falta o 9)'),
+ PL('HWA7S29','T**** J. M****','G1','antigo',2,25.80,'16/11','parada · a decidir','Aguardando decisão','Score Positivo · 03/11','67 9***-3318 (10 dígitos, falta o 9)')
 ];
 /* passagens no padrão do arquivo da Way: id, data/hora, pedágio (praça e sentido), valor */
 const PEDAGIOS=['P1 · Jataí · Leste','P1 · Jataí · Oeste','P2 · km 128 · Norte','P2 · km 128 · Sul'];
@@ -1264,6 +1374,7 @@ const TL={
  Regularizada:[['28/10 08:40','Placa recebida na base inicial da Way','done'],['28/10 08:52','Consulta Score Positivo · proprietário e telefone com WhatsApp','done'],['29/10 09:05','D+1 · WhatsApp enviado · entregue · lido 09:08','done'],['29/10 09:21','Clicou no link do portal da Way','done'],['30/10 09:02','Base de retorno da Way: pago em 29/10 no portal','ok'],['30/10 09:02','Régua encerrada · nenhum aviso a mais','ok']],
  Pausada:[['29/10 08:40','Placa recebida na base da Way','done'],['29/10 08:55','Consulta Score Positivo · proprietário e telefone com WhatsApp','done'],['30/10 09:05','D+1 · WhatsApp enviado · entregue · lido','done'],['06/11 16:20','Motorista respondeu "já paguei" · régua pausada','done'],['06/11 16:25','Ocorrência OC-2026-0142 enviada à Way','done'],['','Aguardando base de retorno de amanhã 9h','']],
  'Encaminhada à Way':[['28/10 08:40','Placa recebida na base inicial da Way','done'],['28/10 08:52','Consulta Score Positivo · proprietário e telefone com WhatsApp','done'],['29/10 09:05','D+1 · WhatsApp enviado · entregue · lido','done'],['hoje 10:31','Motorista respondeu "não reconheço" (vendeu o veículo em 02/10)','done'],['hoje 10:40','Ocorrência OC-2026-0147 enviada à Way · régua pausada','done'],['','Aguardando resposta da Way','']],
+ 'Aguardando decisão':[['28/10 08:40','Placa recebida na base inicial da Way','done'],['28/10 08:58','Consulta Score Positivo · telefone de 10 dígitos que parece celular, sem o 9 na frente','done'],['28/10 08:58','Classificado como celular em formato antigo · nenhum envio criado','done'],['','Parado até a decisão: e-mail, SMS com o 9 na frente, ou os dois','']],
  'Sem canal':[['28/10 08:40','Placa recebida na base inicial da Way','done'],['28/10 08:58','Consulta Score Positivo · sem celular e sem e-mail (só telefone fixo ou nenhum contato)','done'],['29/10 09:00','Sem canal: fixo não recebe WhatsApp nem SMS e não há e-mail · aviso não enviado','done'],['06/11 18:10','Devolvida à Way na base enriquecida (sem canal)','done']]
 };
 /* linha do tempo de quem está na régua por SMS ou por e-mail */
@@ -1358,7 +1469,7 @@ $('#gpanel-off').addEventListener('click',()=>setGuide(false));
 
 /* ---------- boas-vindas ---------- */
 const LOGO_SVG='<svg viewBox="0 0 1599.9 307.0" aria-hidden="true"><path fill="var(--logo)" d="M376.04 177.42C367.96 222.22 331.68 244.12 304.63 248.94C250.83 258.57 217.46 215.63 217.46 215.63L244.38 188.69C244.38 188.69 285.29 236.76 324.56 197.46C344.26 177.74 344.26 145.71 324.56 125.99L288.87 90.28L92.16 287.10L29.51 224.40C8.18 203.05 0.00 173.56 5.00 145.94C13.03 101.50 49.40 79.24 76.41 74.47C129.89 65.02 163.57 107.77 163.57 107.77L136.65 134.71C136.65 134.71 95.57 86.74 56.43 125.90C36.73 145.62 36.73 177.65 56.43 197.37L92.16 233.12L288.87 36.30L351.52 99.00C372.81 120.36 381.03 149.84 376.04 177.42M600.53 65.43C623.78 65.43 643.62 74.06 660.10 91.32C676.58 108.59 684.79 129.67 684.79 154.52C684.79 179.38 676.58 200.73 660.10 217.86C643.62 235.03 623.78 243.62 600.53 243.62C574.79 243.62 555.04 234.12 541.29 215.18L541.29 307.00L504.74 307.00L504.74 69.83L541.29 69.83L541.29 94.23C555.04 75.06 574.79 65.43 600.53 65.43M556.54 193.32C566.71 203.59 579.42 208.73 594.81 208.73C610.20 208.73 622.91 203.59 633.08 193.32C643.25 183.06 648.34 170.11 648.34 154.52C648.34 138.94 643.25 126.04 633.08 115.72C622.91 105.45 610.16 100.32 594.81 100.32C579.47 100.32 566.71 105.45 556.54 115.72C546.37 125.99 541.29 138.94 541.29 154.52C541.29 170.11 546.37 183.06 556.54 193.32M745.08 98.28C754.34 77.29 771.73 66.79 797.20 66.79L797.20 106.41C783.22 105.50 771.00 108.86 760.65 116.40C750.26 123.99 745.08 136.44 745.08 153.84L745.08 239.21L708.54 239.21L708.54 69.83L745.08 69.83L745.08 98.28M886.91 243.62C862.07 243.62 840.96 235.03 823.62 217.86C806.23 200.68 797.56 179.56 797.56 154.52C797.56 129.49 806.23 108.32 823.62 91.19C841.01 74.01 862.07 65.43 886.91 65.43C911.74 65.43 933.12 74.01 950.37 91.19C967.62 108.36 976.25 129.49 976.25 154.52C976.25 179.56 967.62 200.73 950.37 217.86C933.12 235.03 911.97 243.62 886.91 243.62M849.32 192.82C859.49 203.00 872.02 208.09 886.91 208.09C901.80 208.09 914.33 203.00 924.50 192.82C934.67 182.65 939.75 169.93 939.75 154.52C939.75 139.12 934.67 126.40 924.50 116.22C914.33 106.04 901.80 101.00 886.91 101.00C872.02 101.00 859.49 106.09 849.32 116.22C839.15 126.40 834.11 139.17 834.11 154.52C834.11 169.88 839.19 182.65 849.32 192.82M1038.25 69.83L1076.99 69.83L1117.25 184.19L1157.51 69.83L1196.25 69.83L1136.62 239.21L1097.88 239.21ZM1210.25 69.83H1246.79V239.21H1210.25ZM1206.52 26.83a22.0 22.0 0 1 0 44.0 0a22.0 22.0 0 1 0 -44.0 0ZM1412.30 69.83L1448.84 69.83L1448.84 239.21L1412.30 239.21L1412.30 214.81C1398.54 234.03 1378.80 243.62 1353.05 243.62C1329.81 243.62 1309.93 234.99 1293.49 217.72C1277.01 200.46 1268.79 179.38 1268.79 154.52C1268.79 129.67 1277.01 108.32 1293.49 91.19C1309.97 74.01 1329.81 65.43 1353.05 65.43C1378.80 65.43 1398.54 74.92 1412.30 93.87L1412.30 69.83M1320.55 193.32C1330.72 203.59 1343.43 208.73 1358.82 208.73C1374.21 208.73 1386.92 203.59 1397.09 193.32C1407.26 183.06 1412.30 170.11 1412.30 154.52C1412.30 138.94 1407.21 126.04 1397.09 115.72C1386.92 105.45 1374.16 100.32 1358.82 100.32C1343.48 100.32 1330.72 105.45 1320.55 115.72C1310.38 125.99 1305.34 138.94 1305.34 154.52C1305.34 170.11 1310.43 183.06 1320.55 193.32M1508.83 116.59C1508.83 122.22 1511.92 126.67 1518.14 129.99C1524.36 133.26 1531.89 136.08 1540.84 138.44C1549.74 140.80 1558.72 143.57 1567.76 146.75C1576.79 149.93 1584.42 155.30 1590.59 162.84C1596.81 170.43 1599.90 179.97 1599.90 191.46C1599.90 207.73 1593.64 220.49 1581.11 229.72C1568.58 238.99 1552.82 243.62 1533.89 243.62C1517.18 243.62 1502.84 240.12 1490.90 233.12C1478.91 226.13 1470.24 216.40 1464.84 204.00L1496.30 185.69C1502.16 201.96 1514.69 210.09 1533.89 210.09C1553.09 210.09 1562.67 203.77 1562.67 191.10C1562.67 185.69 1559.59 181.28 1553.37 177.88C1547.15 174.47 1539.61 171.61 1530.67 169.24C1521.77 166.88 1512.78 164.11 1503.75 160.93C1494.71 157.75 1487.09 152.52 1480.91 145.16C1474.69 137.80 1471.60 128.49 1471.60 117.22C1471.60 101.64 1477.55 89.10 1489.36 79.60C1501.20 70.11 1515.91 65.38 1533.53 65.38C1547.51 65.38 1560.00 68.47 1570.94 74.70C1581.88 80.92 1590.28 89.55 1596.13 100.59L1565.31 117.86C1559.45 105.00 1548.83 98.55 1533.48 98.55C1526.49 98.55 1520.64 100.09 1515.87 103.14C1511.15 106.18 1508.74 110.63 1508.74 116.54L1508.83 116.59"/></svg>';
-function showWelcome(){openModal({wide:true,title:'Bem-vindo ao mockup v4 do Pro Vias',sticky:true,body:`
+function showWelcome(){openModal({wide:true,title:'Bem-vindo ao mockup v5 do Pro Vias',sticky:true,body:`
   <div class="wl-logo">${LOGO_SVG}<span class="small muted">notificação e cobrança de pedágio free flow · dados fictícios</span></div>
   <p class="small muted">Versão de 12/11/2026, com os três canais da WeTalk. A Way manda a base, a Próspera encontra o proprietário e avisa por <b>WhatsApp</b> (celular com WhatsApp), <b>SMS</b> (celular sem WhatsApp) ou <b>e-mail</b> (só telefone fixo). Quem não tem nenhum dos três volta para a Way. O motorista regulariza no portal da Way hoje e, assim que o gateway da Próspera estiver integrado (novembro), paga por <b>Pix, cartão ou boleto</b> na própria conversa ou neste portal. <b>Fase 3:</b> portal com todos os débitos do veículo e parcelamento.</p>
   <div class="welcome">
@@ -1373,7 +1484,7 @@ function showWelcome(){openModal({wide:true,title:'Bem-vindo ao mockup v4 do Pro
   store.set('vp_welcome','1');}
 $('#btn-help').addEventListener('click',showWelcome);
 $('#btn-tenant').addEventListener('click',()=>openModal({title:'Concessionária',body:`<p class="small muted">Você está em <b>Way Brasil</b>. Usuários da Próspera veem todas as concessionárias; usuários da concessionária veem só a sua.</p><div class="list"><div class="item"><div class="ico">WB</div><div><b>Way Brasil</b><span class="t">Way 262 · Way Rodovias · fase 1 · enriquecimento + notificação · base por arquivo</span></div><span class="chip ok">Ativa</span></div><div class="item"><div class="ico" style="background:var(--neutral-bg);color:var(--muted)">?</div><div><b>Próxima concessionária</b><span class="t">cada uma terá seu caminho de integração (arquivo, SFTP ou API) e seu modelo de serviço</span></div><span class="chip info">Em prospecção</span></div></div>`,actions:[{label:'Fechar',primary:true}]}));
-$('#btn-user').addEventListener('click',()=>openModal({title:'Minha conta',body:`<div class="kv"><div><span>Nome</span><b>Operação Próspera</b></div><div><span>Perfil</span><b>Administrador</b></div><div><span>Organização</span><b>Próspera · vê todas as concessionárias</b></div><div><span>Último acesso</span><b>hoje 09:35</b></div></div>`,actions:[{label:'Sair',onClick:()=>{closeModal();toast('Você saiu (simulado)','info');}},{label:'Fechar',primary:true}]}));
+$('#btn-user').addEventListener('click',()=>openModal({title:'Minha conta',body:`<div class="kv"><div><span>Nome</span><b>Operação Próspera</b></div><div><span>Perfil</span><b>Administrador</b></div><div><span>Organização</span><b>Próspera · vê todas as concessionárias</b></div><div><span>Último acesso</span><b>hoje 09:35</b></div></div>`,actions:[{label:'Sair',onClick:()=>{closeModal();go('entrar');}},{label:'Fechar',primary:true}]}));
 
 /* ---------- busca global ---------- */
 const gs=$('#gsearch'),gsug=$('#gsug');
@@ -1395,14 +1506,14 @@ let welcomed=false;
 function route(){const {view,params}=parseHash();closeModal();if(!$('#drawer').hidden){$('#drawer').hidden=true;$('#drawer-bg').hidden=true;}
   const t=params.get('tema');if(t==='escuro'||t==='dark'){theme='dark';applyTheme();}else if(t==='claro'||t==='light'){theme='light';applyTheme();}
   const g=params.get('guia');if(g==='1')setGuide(true,false);else if(g==='2')setGuide(true,true);else if(g==='0')setGuide(false);
-  VIEWS.forEach(v=>{$('#view-'+v).hidden=v!==view;});
+  VIEWS.forEach(v=>{$('#view-'+v).hidden=v!==view;});document.body.classList.toggle('login',view==='entrar');
   const group=view==='motorista'?'motorista':view==='whatsapp'?'whatsapp':'back';
   $('#app').classList.toggle('standalone',group!=='back');document.body.classList.toggle('standalone',group!=='back');
   $$('.switch a').forEach(a=>a.classList.toggle('on',a.dataset.group===group));
   $$('#sidebar a').forEach(a=>{const on=a.getAttribute('href')==='#'+view;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   document.title=TITLES[view]+' · Pro Vias';window.scrollTo({top:0});
   hooks[view]&&hooks[view](params);renderGuide();
-  if(!welcomed){welcomed=true;const tour=params.get('tour');if(tour==='1'||(tour!=='0'&&store.get('vp_welcome')!=='1'))setTimeout(showWelcome,250);}}
+  if(!welcomed){welcomed=true;const tour=params.get('tour');if(view!=='entrar'&&(tour==='1'||(tour!=='0'&&store.get('vp_welcome')!=='1')))setTimeout(showWelcome,250);}}
 window.addEventListener('hashchange',route);
 
 /* ---------- gráficos ---------- */
@@ -1512,21 +1623,21 @@ function openPlaca(placa){const p=PLACAS.find(x=>x.placa===placa);if(!p)return;c
   openDrawerHtml(`<h2><span class="plate">${p.placa}</span> <span class="chip ${STATUS[p.status]}">${p.status}</span> <span class="grp">${p.grupo}</span></h2>
    <p class="muted small">${p.n} passagem${p.n>1?'s':''} em aberto · ${brl(p.total)} · vence em ${p.venc} · etapa: ${p.etapa}</p>
    <h3>Proprietário (enriquecimento)</h3>
-   <div class="kv" data-g="15" data-gt="Dados do proprietário|O que a consulta devolveu: nome e CPF mascarados, telefone (celular ou fixo) com a flag de WhatsApp, e-mail e a fonte. O canal sai daqui: celular com WhatsApp vai por WhatsApp, celular sem WhatsApp por SMS, só fixo por e-mail."><div><span>Nome</span><b>${esc(p.nome)}</b></div><div><span>CPF/CNPJ</span><b>***.${Math.floor(100+Math.random()*899)}.${Math.floor(100+Math.random()*899)}-**</b></div><div><span>Telefone</span><b>${p.tel}</b></div><div><span>Contato</span><b>${ctHtml(p.contato)}</b></div><div><span>E-mail</span><b>${p.contato==='email'||p.grupo==='G3'?'a***@***.com':'não encontrado'}</b></div><div><span>Canal do aviso</span><b>${p.contato==='none'?'nenhum · volta para a Way':CANAL[p.contato]+' (WeTalk)'}</b></div><div><span>Fonte</span><b>${p.fonte}</b></div></div>
+   <div class="kv" data-g="15" data-gt="Dados do proprietário|O que a consulta devolveu: nome e CPF mascarados, telefone (celular ou fixo) com a flag de WhatsApp, e-mail e a fonte. O canal sai daqui: celular com WhatsApp vai por WhatsApp, celular sem WhatsApp por SMS, só fixo por e-mail."><div><span>Nome</span><b>${esc(p.nome)}</b></div><div><span>CPF/CNPJ</span><b>***.${Math.floor(100+Math.random()*899)}.${Math.floor(100+Math.random()*899)}-**</b></div><div><span>Telefone</span><b>${p.tel}</b></div><div><span>Contato</span><b>${ctHtml(p.contato)}</b></div><div><span>E-mail</span><b>${p.contato==='email'||p.grupo==='G3'||(p.contato==='antigo'&&!p.fonte.includes('sem e-mail'))?'a***@***.com':'não encontrado'}</b></div><div><span>Canal do aviso</span><b>${p.contato==='none'?'nenhum · volta para a Way':p.contato==='antigo'?'a decidir · sem envio por enquanto':CANAL[p.contato]+' (WeTalk)'}</b></div><div><span>Fonte</span><b>${p.fonte}</b></div></div>
    <h3>Passagens em aberto (${p.n})</h3>
    <table class="mini" data-g="16" data-gt="Passagens|Cada passagem da base da Way, como no recibo deles: id, data e hora, pedágio (praça e sentido) e valor. Todas vencem em 16/11 pelo prazo extraordinário."><thead><tr><th>Id</th><th>Data e hora</th><th>Pedágio</th><th class="r">Valor</th></tr></thead><tbody>${det.map(d=>`<tr><td class="num small muted">${d[0]}</td><td class="num">${d[1]}</td><td>${d[2]}</td><td class="r num">${d[3]}</td></tr>`).join('')}${p.n>det.length?`<tr><td colspan="3" class="muted">… e mais ${fmt(p.n-det.length)} passagens (total ${brl(p.total)})</td></tr>`:''}</tbody></table>
-   ${stc?`<h3>Status do último envio</h3><div class="stleg" data-g="21" data-gt="Status do envio|O status vem da WeTalk com o mesmo nome que aparece lá. Abaixo, todos os status possíveis no canal desta placa."><p><span class="chip ${p.status==='Regularizada'?'ok':'info'}">${CANAL[p.contato]} · ${stc.ult}</span>${stc.fat?` <span class="small muted">${stc.fat}</span>`:''}${p.contato==='email'?' <span class="conf">a confirmar com a WeTalk</span>':''}</p><p style="margin-top:6px"><b>Status possíveis no ${CANAL[p.contato]}:</b> ${stc.todos}. ${stc.obs}</p></div>`:`<div class="note warn" style="margin-top:14px">Sem canal: o enriquecimento não achou celular nem e-mail${p.tel.includes('fixo')?' (só o telefone fixo, que não recebe WhatsApp nem SMS)':''}. A placa não é avisada e volta para a Way na base enriquecida.</div>`}
+   ${stc?`<h3>Status do último envio</h3><div class="stleg" data-g="21" data-gt="Status do envio|O status vem da WeTalk com o mesmo nome que aparece lá. Abaixo, todos os status possíveis no canal desta placa."><p><span class="chip ${p.status==='Regularizada'?'ok':'info'}">${CANAL[p.contato]} · ${stc.ult}</span>${stc.fat?` <span class="small muted">${stc.fat}</span>`:''}${p.contato==='email'?' <span class="conf">a confirmar com a WeTalk</span>':''}</p><p style="margin-top:6px"><b>Status possíveis no ${CANAL[p.contato]}:</b> ${stc.todos}. ${stc.obs}</p></div>`:p.contato==='antigo'?`<div class="note warn" style="margin-top:14px" data-g="21" data-gt="Celular em formato antigo|O telefone tem 10 dígitos e parece celular sem o 9. O sistema não tenta adivinhar: a placa fica parada até a decisão de produto.">Celular em formato antigo: o telefone tem 10 dígitos e parece um celular sem o 9 na frente. Nenhum aviso foi criado. Caminhos em análise: ${p.fonte.includes('sem e-mail')?'SMS com o 9 na frente (não há e-mail)':'e-mail, SMS com o 9 na frente, ou os dois'}.</div>`:`<div class="note warn" style="margin-top:14px">Sem canal: o enriquecimento não achou celular nem e-mail${p.tel.includes('fixo')?' (só o telefone fixo, que não recebe WhatsApp nem SMS)':''}. A placa não é avisada e volta para a Way na base enriquecida.</div>`}
    <h3>Linha do tempo</h3>
    <ul class="timeline" id="pass-tl" data-g="17" data-gt="Linha do tempo|Cada evento: base recebida, consulta, envios por canal, entrega, leitura, clique, resposta, ocorrência e baixa vinda da Way.">${tl.map(t=>`<li class="${t[2]}"><b>${t[1]}</b><span class="when">${t[0]||'pendente'}</span></li>`).join('')}</ul>
-   <div class="actions" style="margin-top:16px"><button class="btn btn-ok" data-act="paid" data-g="18" data-gt="Marcar como paga|Baixa manual, quando a Way confirma fora da base de retorno. Encerra a régua.">Marcar como paga</button><button class="btn btn-primary" data-act="resend" data-g="19" data-gt="Reenviar aviso|Manda de novo a mensagem da etapa atual pelo canal da placa (WhatsApp, SMS ou e-mail).">Reenviar aviso</button><button class="btn" data-act="conv">Ver conversa</button><button class="btn" data-act="pause">${p.status==='Pausada'?'Retomar régua':'Pausar régua'}</button><button class="btn btn-danger" data-act="devolver" data-g="20" data-gt="Devolver à Way|Tira a placa da régua e a devolve na base enriquecida, para a Way tratar pelo canal dela.">Devolver à Way</button></div>`,'Detalhe da placa');
+   <div class="actions" style="margin-top:16px"><button class="btn btn-ok" data-act="paid" data-g="18" data-gt="Marcar como paga|Baixa manual, quando a Way confirma fora da base de retorno. Encerra a régua.">Marcar como paga</button><button class="btn btn-primary" ${p.contato==='antigo'||p.contato==='none'?'style="display:none" ':''}data-act="resend" data-g="19" data-gt="Reenviar aviso|Manda de novo a mensagem da etapa atual pelo canal da placa (WhatsApp, SMS ou e-mail).">Reenviar aviso</button><button class="btn" data-act="conv">Ver conversa</button><button class="btn" data-act="pause">${p.status==='Pausada'?'Retomar régua':'Pausar régua'}</button><button class="btn btn-danger" data-act="devolver" data-g="20" data-gt="Devolver à Way|Tira a placa da régua e a devolve na base enriquecida, para a Way tratar pelo canal dela.">Devolver à Way</button></div>`,'Detalhe da placa');
   $('#drawer').addEventListener('click',async e=>{const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;
-    if(act==='resend'){const li=document.createElement('li');li.className='done';li.innerHTML=`<b>Aviso reenviado por ${p.contato==='wa'?'WhatsApp · Entregue':p.contato==='sms'?'SMS · Encaminhado (operadora confirma em até 24 h)':p.contato==='email'?'e-mail · Enviado':'nenhum canal disponível'}</b><span class="when">hoje 10:4${Math.floor(Math.random()*9)}</span>`;$('#pass-tl').appendChild(li);toast(p.contato==='none'?'Sem canal disponível para esta placa':'Aviso reenviado por '+CANAL[p.contato],p.contato==='none'?'warn':'ok');}
+    if(act==='resend'){const li=document.createElement('li');li.className='done';li.innerHTML=`<b>Aviso reenviado por ${p.contato==='wa'?'WhatsApp · Entregue':p.contato==='sms'?'SMS · Encaminhado (operadora confirma em até 24 h)':p.contato==='email'?'e-mail · Enviado':'nenhum canal disponível'}</b><span class="when">hoje 10:4${Math.floor(Math.random()*9)}</span>`;$('#pass-tl').appendChild(li);const sc=p.contato==='none'||p.contato==='antigo';if(sc)li.remove();toast(p.contato==='antigo'?'Celular em formato antigo: sem envio até a decisão':sc?'Sem canal disponível para esta placa':'Aviso reenviado por '+CANAL[p.contato],sc?'warn':'ok');}
     if(act==='conv'){closeDrawer();go('conversas',{placa:p.placa});}
     if(act==='paid'&&await confirmDlg({title:'Marcar '+p.placa+' como paga',text:'Baixa manual: a régua encerra e o motorista não recebe mais avisos. Fica registrado com seu usuário e a data.',ok:'Marcar como paga'})){p.status='Regularizada';p.etapa='encerrada';renderPlacas();closeDrawer();toast('Placa '+p.placa+' regularizada por baixa manual');}
     if(act==='pause'){if(p.status==='Pausada'){p.status='Na régua';p.etapa='D+3 reforço';toast('Régua retomada para '+p.placa);}else{p.status='Pausada';p.etapa='pausada';toast('Régua pausada para '+p.placa,'warn');}renderPlacas();closeDrawer();}
     if(act==='devolver'&&await confirmDlg({title:'Devolver '+p.placa+' à Way',text:'A placa sai da régua e vai na próxima base enriquecida com os dados encontrados, para a Way tratar pelo canal dela.',ok:'Devolver',danger:true})){p.status='Sem canal';p.etapa='devolvida';renderPlacas();closeDrawer();toast('Placa '+p.placa+' devolvida à Way','warn');}});}
 /* ---------- feedback (botão flutuante) ---------- */
-function fbTexto(bg){const nome=$('#fb-nome',bg).value.trim()||'(sem nome)',tela=$('#fb-tela',bg).value,tipo=$('#fb-tipo',bg).value,txt=$('#fb-txt',bg).value.trim();return `Feedback · Pro Vias (mockup v4)\nQuem: ${nome}\nTela: ${tela}\nTipo: ${tipo}\nComentário: ${txt}\nLink: ${location.href}`;}
+function fbTexto(bg){const nome=$('#fb-nome',bg).value.trim()||'(sem nome)',tela=$('#fb-tela',bg).value,tipo=$('#fb-tipo',bg).value,txt=$('#fb-txt',bg).value.trim();return `Feedback · Pro Vias (mockup v5)\nQuem: ${nome}\nTela: ${tela}\nTipo: ${tipo}\nComentário: ${txt}\nLink: ${location.href}`;}
 $('#btn-fb').addEventListener('click',()=>{const {view}=parseHash();openModal({title:'Dar feedback sobre o mockup',body:`<p class="small muted">Diga o que achou desta tela. O texto sai pronto para o WhatsApp do grupo do projeto, ou copie e cole onde preferir.</p><div class="form"><label>Seu nome<input id="fb-nome" placeholder="Como quer assinar" value="${esc(store.get('vp_fb_nome')||'')}"></label><label>Tela<select id="fb-tela">${VIEWS.map(v=>`<option ${v===view?'selected':''}>${TITLES[v]}</option>`).join('')}</select></label><label>Tipo<select id="fb-tipo"><option>Sugestão</option><option>Problema</option><option>Dúvida</option><option>Elogio</option></select></label><label class="full">Comentário<textarea id="fb-txt" rows="4" placeholder="O que faria diferente, o que não entendeu, o que faltou…"></textarea></label></div>`,
   actions:[{label:'Cancelar'},{label:'Copiar texto',onClick:(b,bg)=>{if(!$('#fb-txt',bg).value.trim()){toast('Escreva o comentário antes','warn');return;}store.set('vp_fb_nome',$('#fb-nome',bg).value.trim());const t=fbTexto(bg);(navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Feedback copiado · cole no grupo ou no e-mail')).catch(()=>toast('Não deu para copiar automaticamente; selecione o texto e copie','warn'));}},{label:'Enviar por e-mail',onClick:(b,bg)=>{if(!$('#fb-txt',bg).value.trim()){toast('Escreva o comentário antes','warn');return;}store.set('vp_fb_nome',$('#fb-nome',bg).value.trim());location.href='mailto:?subject='+encodeURIComponent('Feedback · Pro Vias mockup · '+$('#fb-tela',bg).value)+'&body='+encodeURIComponent(fbTexto(bg));}},{label:'Enviar pelo WhatsApp',primary:true,onClick:(b,bg)=>{if(!$('#fb-txt',bg).value.trim()){toast('Escreva o comentário antes','warn');$('#fb-txt',bg).focus();return;}store.set('vp_fb_nome',$('#fb-nome',bg).value.trim());window.open('https://wa.me/?text='+encodeURIComponent(fbTexto(bg)),'_blank');closeModal();toast('Abrindo o WhatsApp com o texto pronto · escolha o grupo do projeto');}}]});});
 
@@ -1636,28 +1747,35 @@ $('#save-ok').addEventListener('click',()=>{clearDirty();toast('Alterações sal
 $('#save-discard').addEventListener('click',()=>{clearDirty();toast('Alterações descartadas','info');});
 
 /* ---------- disparos ---------- */
+let stopped=false;const lst=l=>stopped&&(l.status==='Em envio'||l.status==='Agendado')?'Parado · envio geral suspenso':l.status;
 const LST=s=>s==='Concluído'?'ok':s==='Em envio'?'info':s==='Agendado'?'':'warn';
 const pc=(a,b)=>a==null||b==null?'<span class="muted">—</span>':`${fmt(a)} <span class="muted small">· ${pct(a,b)}%</span>`;
 const CK={'WhatsApp':'wa','SMS':'sms','E-mail':'email'};function ctLote(c){return `<span class="ct ${CK[c]}"><i></i>${c}</span>`;}
-function renderLotes(){$('#tbl-disp tbody').innerHTML=LOTES.map(l=>`<tr class="row-link" data-l="${l.id}" tabindex="0"><td><b>${l.id}</b></td><td class="num">${l.quando}</td><td>${l.etapa}</td><td>${ctLote(l.canal)}</td><td class="r num">${fmt(l.env)}</td><td class="r num">${pc(l.ent,l.env)}</td><td class="r num">${l.canal==='SMS'?'<span class="muted">não informa</span>':pc(l.lid,l.env)}</td><td class="r num">${pc(l.cli,l.env)}</td><td class="r num">${pc(l.resp,l.env)}</td><td class="r num">${l.falha==null?'<span class="muted">—</span>':fmt(l.falha)}</td><td><span class="chip ${LST(l.status)}">${l.status}</span></td></tr>`).join('');}
+function renderLotes(){$('#tbl-disp tbody').innerHTML=LOTES.map(l=>`<tr class="row-link" data-l="${l.id}" tabindex="0"><td><b>${l.id}</b></td><td class="num">${l.quando}</td><td>${l.etapa}</td><td>${ctLote(l.canal)}</td><td class="r num">${fmt(l.env)}</td><td class="r num">${pc(l.ent,l.env)}</td><td class="r num">${l.canal==='SMS'?'<span class="muted">não informa</span>':pc(l.lid,l.env)}</td><td class="r num">${pc(l.cli,l.env)}</td><td class="r num">${pc(l.resp,l.env)}</td><td class="r num">${l.falha==null?'<span class="muted">—</span>':fmt(l.falha)}</td><td><span class="chip ${LST(lst(l))}">${lst(l)}</span></td></tr>`).join('');}
 $('#tbl-disp').addEventListener('click',e=>{const tr=e.target.closest('tr.row-link');if(tr)openLote(tr.dataset.l);});
 $('#tbl-disp').addEventListener('keydown',e=>{if(e.key==='Enter'){const tr=e.target.closest('tr.row-link');if(tr&&e.target===tr)openLote(tr.dataset.l);}});
-function openLote(id){const l=LOTES.find(x=>x.id===id);const done=l.ent!=null;
+function openLote(id){const l=LOTES.find(x=>x.id===id);const done=l.ent!=null;const live=l.status==='Em envio'||l.status==='Agendado';
+  const ctl=live?`<button class="btn" data-act="lpause" data-lid="${l.id}" data-g="18" data-gt="Pausar lote|Segura o que ainda não saiu deste lote. O que a WeTalk já aceitou segue o caminho normal. Dá para retomar depois.">Pausar lote</button><button class="btn btn-danger" data-act="cancel" data-lid="${l.id}" data-g="19" data-gt="Cancelar lote|Encerra o lote. O que ainda não saiu volta para a fila do próximo dia. Não tem volta.">Cancelar lote</button>`:l.status==='Pausado'?`<button class="btn btn-ok" data-act="lresume" data-lid="${l.id}" data-g="18" data-gt="Retomar lote|Volta a enviar de onde parou, depois de conferir de novo a base de retorno.">Retomar lote</button><button class="btn btn-danger" data-act="cancel" data-lid="${l.id}">Cancelar lote</button>`:'';
   const k=CK[l.canal],st=ST_CANAL[k];const rows=done?[['Enviados',l.env],[k==='sms'?'Enviado (operadora confirmou)':'Entregues',l.ent],[k==='email'?'Abertos':'Lidos',l.lid==null?null:l.lid],['Clicaram no link',l.cli],['Responderam',l.resp]].filter(r=>r[1]!=null):[];
-  const falhas=k==='wa'?[['Inválida (número sem WhatsApp)',.52,'SMS em seguida'],['Falha ou Expirado (não entregou)',.34,'SMS de reserva'],['Blacklist (respondeu SAIR)',.08,'opt-out no WhatsApp'],['Bloqueio em URA, em atendimento ou de reenvio',.06,'reenvia na próxima etapa']]:k==='sms'?[['Erro (operadora não entregou)',.78,'e-mail, se houver; senão volta para a Way'],['Blacklist',.14,'opt-out · sai da régua'],['Sem servidor SMS',.08,'reenvio automático']]:[['Devolvido (bounce)',1,'vira sem canal · volta para a Way']];
+  const falhas=k==='wa'?[['Inválida (número sem WhatsApp)',.52,'SMS em seguida'],['Falha ou Expirado (não entregou)',.34,'SMS de reserva'],['Blacklist (respondeu SAIR)',.08,'entra na lista de bloqueio (vale para os três canais)'],['Bloqueio em URA, em atendimento ou de reenvio',.06,'reenvia na próxima etapa']]:k==='sms'?[['Erro (operadora não entregou)',.78,'e-mail, se houver; senão volta para a Way'],['Blacklist',.14,'lista de bloqueio · sai da régua'],['Sem servidor SMS',.08,'reenvio automático']]:[['Devolvido (bounce)',1,'vira sem canal · volta para a Way']];
   openDrawerHtml(`<h2>Lote ${l.id} <span class="chip ${LST(l.status)}">${l.status}</span></h2><p class="muted small">${l.etapa} · ${l.canal} · ${l.quando}</p>
    ${done?`<h3>Funil do lote</h3><div class="bars" data-g="15" data-gt="Funil do lote|De tudo que foi enviado neste lote, quanto chegou, foi lido (só no WhatsApp; no e-mail, aberto), clicou e respondeu. Dados devolvidos pela WeTalk.">${rows.map(([n,v])=>`<div class="row"><b>${n}</b><div class="bar"><i style="width:${pct(v,l.env)}%"></i></div><span class="n">${fmt(v)} · ${pct(v,l.env)}%</span></div>`).join('')}<div class="row"><b>Falhas</b><div class="bar"><i class="warn" style="width:${pct(l.falha,l.env)}%"></i></div><span class="n">${fmt(l.falha)} · ${pct(l.falha,l.env)}%</span></div></div>
    <h3>Por grupo</h3><table class="mini"><thead><tr><th>Grupo</th><th class="r">Enviados</th><th class="r">Lidos</th><th class="r">Cliques</th></tr></thead><tbody><tr><td><span class="grp">G1</span> sem vínculo</td><td class="r num">${fmt(Math.round(l.env*.62))}</td><td class="r num">${l.lid==null?'—':pct(Math.round(l.lid*.6),Math.round(l.env*.62))+'%'}</td><td class="r num">${pct(Math.round(l.cli*.58),Math.round(l.env*.62))}%</td></tr><tr><td><span class="grp">G2</span> CNH Brasil</td><td class="r num">${fmt(Math.round(l.env*.23))}</td><td class="r num">${l.lid==null?'—':pct(Math.round(l.lid*.2),Math.round(l.env*.23))+'%'}</td><td class="r num">${pct(Math.round(l.cli*.17),Math.round(l.env*.23))}%</td></tr><tr><td><span class="grp">G3</span> cadastrado</td><td class="r num">${fmt(Math.round(l.env*.15))}</td><td class="r num">${l.lid==null?'—':pct(Math.round(l.lid*.2),Math.round(l.env*.15))+'%'}</td><td class="r num">${pct(Math.round(l.cli*.25),Math.round(l.env*.15))}%</td></tr></tbody></table>
    <h3>Falhas (${fmt(l.falha)})</h3><table class="mini"><thead><tr><th>Status da WeTalk</th><th class="r">Placas</th><th>O que o sistema fez</th></tr></thead><tbody>${falhas.map(f=>`<tr><td>${f[0]}</td><td class="r num">${fmt(Math.round(l.falha*f[1]))}</td><td>${f[2]}</td></tr>`).join('')}</tbody></table>
    <h3>Status deste canal</h3><div class="stleg" data-g="17" data-gt="Status do canal|Os nomes são os que a WeTalk devolve neste canal. Servem para conferir o lote com o relatório Detalhe de Envios de lá."><p><b>${l.canal}:</b> ${st.todos}. ${st.obs}${k==='email'?' <span class="conf">a confirmar</span>':''}</p></div>`:
-   `<div class="note">${l.status==='Agendado'?'Lote agendado para as 10:00, dentro da janela. Antes de sair, o sistema aplica a base de retorno das 09:02 e remove quem pagou.':'Lote em processamento.'}</div>`}
+   `<div class="note">${l.status==='Agendado'?'Lote agendado para as 10:00, dentro da janela. Antes de sair, o sistema aplica a base de retorno das 09:02 e remove quem pagou.':l.status==='Pausado'?'Lote pausado antes de sair. Nenhuma mensagem foi enviada.':l.status==='Cancelado'?'Lote cancelado. As placas voltam para a fila do próximo dia.':'Lote em processamento.'}</div>`}
+   ${l.status==='Pausado'&&done?`<div class="note warn" style="margin-top:12px">Lote pausado por Operação Próspera · hoje 10:48. Saíram ${fmt(l.ent)} de ${fmt(l.env)}; o restante espera. O que a WeTalk já aceitou segue normalmente.</div>`:''}${stopped&&live?'<div class="note warn" style="margin-top:12px">Todos os envios estão parados. Este lote só volta quando o gestor retomar.</div>':''}
    ${l.status.startsWith('Segurado')?'<div class="note warn" style="margin-top:12px">A base de retorno de 06/11 chegou às 12:40 (corte 9h). O lote ficou segurado 3h40 e saiu às 13:00 sem as 310 placas que haviam pago.</div>':''}
-   <div class="actions" style="margin-top:16px"><button class="btn btn-primary" data-act="rel">Baixar relatório do lote</button>${done?(k==='wa'?'<button class="btn" data-act="sms">Reenviar falhas por SMS</button>':'<button class="btn" data-act="way">Devolver falhas à Way</button>'):'<button class="btn btn-danger" data-act="cancel">Cancelar lote</button>'}</div>`,'Lote de disparo');
-  $('#drawer').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;if(b.dataset.act==='rel')toast(`${l.id}.csv baixado · uma linha por placa com status de entrega`,'info');if(b.dataset.act==='sms')toast(`SMS de reserva enviado para ${fmt(Math.round(l.falha*0.86))} placas`);if(b.dataset.act==='way')toast(`${fmt(l.falha)} placas marcadas como sem canal · vão na próxima base enriquecida para a Way`,'info');if(b.dataset.act==='cancel'){l.status='Cancelado';renderLotes();closeDrawer();toast('Lote cancelado · as placas voltam para o próximo dia','warn');}});}
+   <div class="actions" style="margin-top:16px"><button class="btn btn-primary" data-act="rel">Baixar relatório do lote</button>${done&&!live&&l.status!=='Pausado'&&l.status!=='Cancelado'?(k==='wa'?'<button class="btn" data-act="sms">Reenviar falhas por SMS</button>':'<button class="btn" data-act="way">Devolver falhas à Way</button>'):''}${ctl}</div>`,'Lote de disparo');
+  $('#drawer').addEventListener('click',async e=>{const b=e.target.closest('[data-act]');if(!b)return;if(b.dataset.lid&&b.dataset.lid!==l.id)return;if(!$('#drawer h2')||!$('#drawer h2').textContent.includes(l.id))return;
+    if(b.dataset.act==='lpause'){l.status='Pausado';audAdd('Pausou lote',`Lote ${l.id} · ${l.etapa} · ${l.canal}`,'Disparos');renderLotes();openLote(l.id);toast(`Lote ${l.id} pausado · o que ainda não saiu fica esperando`,'warn');return;}
+    if(b.dataset.act==='lresume'){l.status=l.ent!=null?'Em envio':'Agendado';audAdd('Retomou lote',`Lote ${l.id} · base de retorno conferida de novo`,'Disparos');renderLotes();openLote(l.id);toast(`Lote ${l.id} retomado`);return;}
+    if(b.dataset.act==='cancel'){if(!await confirmDlg({title:'Cancelar o lote '+l.id,text:'O que ainda não saiu volta para a fila do próximo dia. O que a WeTalk já aceitou não volta. Esta ação não tem como desfazer.',ok:'Cancelar lote',danger:true}))return;l.status='Cancelado';audAdd('Cancelou lote',`Lote ${l.id} · ${l.etapa} · ${l.canal}`,'Disparos');renderLotes();closeDrawer();toast('Lote cancelado · as placas voltam para o próximo dia','warn');return;}
+    if(b.dataset.act==='rel')toast(`${l.id}.csv baixado · uma linha por placa com status de entrega`,'info');if(b.dataset.act==='sms')toast(`SMS de reserva enviado para ${fmt(Math.round(l.falha*0.86))} placas`);if(b.dataset.act==='way')toast(`${fmt(l.falha)} placas marcadas como sem canal · vão na próxima base enriquecida para a Way`,'info');});}
 $('#btn-disp-export').addEventListener('click',e=>busy(e.currentTarget,800,()=>toast('disparos-2026-11.csv pronto · 9 lotes · WhatsApp, SMS e e-mail · status da WeTalk por mensagem')));
 $('#disp-periodo').addEventListener('change',e=>toast('Mostrando '+e.target.value.toLowerCase(),'info'));
 renderLotes();
-hooks.disparos=params=>{const l=params.get('lote');if(l&&LOTES.some(x=>x.id===l))setTimeout(()=>openLote(l),50);};
+hooks.disparos=params=>{const l=params.get('lote');if(l&&LOTES.some(x=>x.id===l))setTimeout(()=>{openLote(l);const a=params.get('acao');if(a==='pausar'){const b=$('#drawer [data-act="lpause"]');b&&b.click();}},50);};
 
 /* ---------- conversas e ocorrências ---------- */
 let convFilter='fila',curThread=0;
@@ -1807,8 +1925,81 @@ $$('.scen button').forEach(b=>b.addEventListener('click',()=>{runScen(b.dataset.
 hooks.whatsapp=params=>{const g=params.get('grupo');if(g&&MSGS[g]&&g!==simGrp){simGrp=g;$$('#grp-sim button').forEach(x=>x.classList.toggle('on',x.dataset.grp===g));}const f=params.get('fase');if(f==='2'&&phase!==2)setPhase(2);else if(f==='1'&&phase!==1)setPhase(1);const c=params.get('cenario');if(c)runScen(c,params.get('passo'));else if(g||!wa.children.length)simStart();};
 setPhase(1);
 
+/* ---------- auditoria ---------- */
+const AUD=[
+ {q:'hoje 10:42',u:'Operação Próspera',p:'Operador',t:'Viu dado completo',d:'CPF e telefone completos da placa RTY1H02 · motivo informado: conferência de ocorrência',o:'Placas'},
+ {q:'hoje 10:40',u:'Operação Próspera',p:'Operador',t:'Abriu ocorrência',d:'OC-2026-0147 enviada à Way · régua da placa PLK3M45 pausada',o:'Conversas'},
+ {q:'hoje 09:48',u:'Juliano · Desenvolvimento',p:'Administrador',t:'Exportou base com dado pessoal',d:'provias_enriquecida_2026-11-07.csv · 1.210 placas · nome, telefone e e-mail · destino: Way',o:'Bases'},
+ {q:'hoje 09:40',u:'Henrique · Produto',p:'Administrador',t:'Entrou',d:'Senha + código de verificação · navegador conhecido',o:'Acesso'},
+ {q:'hoje 09:35',u:'Operação Próspera',p:'Operador',t:'Entrou',d:'Senha + código de verificação',o:'Acesso'},
+ {q:'hoje 09:12',u:'Financeiro Way',p:'Concessionária',t:'Deu baixa manual',d:'Placa VBN6P63 marcada como paga · comprovante informado pela Way',o:'Placas'},
+ {q:'hoje 09:02',u:'Financeiro Way',p:'Concessionária',t:'Subiu base',d:'way_pagamentos_2026-11-07.csv · 330 pagamentos',o:'Bases'},
+ {q:'ontem 17:20',u:'Antônio · Integrações',p:'Operador',t:'Mudou configuração',d:'Canais e fornecedores · WhatsApp: modelo do D+3 trocado da versão 2 para a versão 3',o:'Configurações'},
+ {q:'ontem 13:05',u:'Henrique · Produto',p:'Administrador',t:'Mudou configuração',d:'Régua · espera do WhatsApp antes do SMS: de 12 horas para 6 horas',o:'Régua'},
+ {q:'ontem 11:30',u:'Operação Próspera',p:'Operador',t:'Pausou lote',d:'Lote L-0143 · D+3 Reforço · WhatsApp · base de retorno atrasada',o:'Disparos'},
+ {q:'ontem 10:02',u:'Atendimento Way',p:'Concessionária',t:'Tentativa de entrada recusada',d:'Código de verificação errado 3 vezes · acesso liberado na 4ª',o:'Acesso'},
+ {q:'05/11 16:10',u:'Henrique · Produto',p:'Administrador',t:'Retirou da lista de bloqueio',d:'Contato +55 67 9****-2290 · motivo: titular pediu para voltar a receber',o:'Lista de bloqueio'},
+ {q:'05/11 11:05',u:'Operação Próspera',p:'Operador',t:'Incluiu na lista de bloqueio',d:'Contato +55 67 9****-8843 · origem: pedido à concessionária',o:'Lista de bloqueio'}
+];
+function audAdd(t,d,o){AUD.unshift({q:'hoje 10:5'+Math.floor(Math.random()*9),u:'Operação Próspera',p:'Operador',t,d,o});renderAud();}
+const audQ=$('#aud-quem'),audT=$('#aud-tipo');
+function audOpts(){const keep=[audQ.value,audT.value];audQ.innerHTML='<option value="">Todas as pessoas</option>'+[...new Set(AUD.map(a=>a.u))].sort().map(u=>`<option>${esc(u)}</option>`).join('');audT.innerHTML='<option value="">Todo tipo de ação</option>'+[...new Set(AUD.map(a=>a.t))].sort().map(u=>`<option>${esc(u)}</option>`).join('');audQ.value=keep[0];audT.value=keep[1];}
+const AUD_CHIP=t=>/dado|Exportou/.test(t)?'viol':/Parou|recusada|Cancelou/.test(t)?'warn':/Entrou|Retomou/.test(t)?'ok':'info';
+function renderAud(){audOpts();const rows=AUD.filter(a=>(!audQ.value||a.u===audQ.value)&&(!audT.value||a.t===audT.value));$('#aud-count').textContent=rows.length===AUD.length?`${AUD.length} registros de exemplo`:`${rows.length} de ${AUD.length} registros`;
+  $('#tbl-aud tbody').innerHTML=rows.map(a=>`<tr><td class="num aud-t">${a.q}</td><td>${esc(a.u)}</td><td class="muted">${a.p}</td><td><span class="chip ${AUD_CHIP(a.t)}">${a.t}</span></td><td class="wrap">${esc(a.d)}</td><td class="muted">${a.o}</td></tr>`).join('')||'<tr><td colspan="6"><div class="empty"><b>Nenhum registro com esses filtros</b>Troque a pessoa ou o tipo de ação.</div></td></tr>';}
+[audQ,audT].forEach(el=>el.addEventListener('input',renderAud));
+$('#aud-periodo').addEventListener('change',e=>toast('Mostrando '+e.target.value.toLowerCase(),'info'));
+$('#btn-aud-export').addEventListener('click',e=>busy(e.currentTarget,800,()=>{audAdd('Exportou auditoria','auditoria-2026-11.csv · filtros atuais','Auditoria');toast('auditoria-2026-11.csv pronto · a exportação também foi registrada');}));
+hooks.auditoria=params=>{audOpts();if(params.has('tipo'))audT.value=params.get('tipo')||'';if(params.has('quem'))audQ.value=params.get('quem')||'';renderAud();};
+renderAud();
+
+/* ---------- lista de bloqueio ---------- */
+const BLOQ=[
+ {c:'+55 67 9****-1177',tipo:'Celular',placa:'BNM7T45',orig:'Resposta SAIR',canal:'WhatsApp',em:'06/11 16:31',por:'automático'},
+ {c:'+55 67 9****-6620',tipo:'Celular',placa:'RVX3K08',orig:'Resposta SAIR',canal:'SMS',em:'04/11 11:07',por:'automático'},
+ {c:'f***@***.com.br',tipo:'E-mail',placa:'DLP9E64',orig:'Resposta SAIR',canal:'E-mail',em:'03/11 15:44',por:'automático'},
+ {c:'+55 67 9****-8843',tipo:'Celular',placa:'KTD6H21',orig:'Pedido à concessionária',canal:'Ouvidoria da Way',em:'05/11 11:05',por:'Operação Próspera'},
+ {c:'j***@***.com',tipo:'E-mail',placa:'MRB4P90',orig:'Pedido à concessionária',canal:'Atendimento da Way',em:'31/10 09:20',por:'Atendimento Way'},
+ {c:'+55 67 9****-0519',tipo:'Celular',placa:'QSC1A37',orig:'Inclusão manual',canal:'Telefone (número de terceiro)',em:'30/10 14:02',por:'Operação Próspera'}
+];
+const bloqQ=$('#bloq-q'),bloqO=$('#bloq-orig');
+function renderBloq(){const q=bloqQ.value.trim().toLowerCase();const rows=BLOQ.filter(b=>(!q||b.placa.toLowerCase().includes(q)||b.c.toLowerCase().includes(q))&&(!bloqO.value||b.orig===bloqO.value));$('#bloq-count').textContent=`${rows.length} de ${BLOQ.length} contatos bloqueados (exemplo)`;$('#cnt-bloq').textContent=BLOQ.length;
+  $('#tbl-bloq tbody').innerHTML=rows.map(b=>`<tr><td><b>${esc(b.c)}</b></td><td class="muted">${b.tipo}</td><td><span class="plate">${b.placa}</span></td><td><span class="chip ${b.orig==='Resposta SAIR'?'info':b.orig==='Inclusão manual'?'':'viol'}">${b.orig}</span></td><td class="muted">${esc(b.canal)}</td><td class="num">${b.em}</td><td class="muted">${esc(b.por)}</td><td><button class="btn btn-sm btn-ghost" data-unblock="${esc(b.c)}">Retirar</button></td></tr>`).join('')||'<tr><td colspan="8"><div class="empty"><b>Ninguém na lista com esse filtro</b>Limpe a busca para ver todos.</div></td></tr>';}
+[bloqQ,bloqO].forEach(el=>el.addEventListener('input',renderBloq));
+$('#btn-bloq-add').addEventListener('click',()=>openModal({title:'Incluir na lista de bloqueio',body:`<p class="small muted">Use quando o pedido chega por fora das mensagens. Quem responde SAIR entra sozinho.</p><div class="form"><label>Telefone ou e-mail<input id="bl-c" placeholder="67 9 9999-0000 ou nome@email.com"></label><label>Placa (se souber)<input id="bl-p" placeholder="ABC1D23" maxlength="7" style="text-transform:uppercase"></label><label>Origem<select id="bl-o"><option>Pedido à concessionária</option><option>Inclusão manual</option></select></label><label>Como o pedido chegou<input id="bl-m" placeholder="Ouvidoria, telefone, e-mail…"></label></div><p class="small muted">Vale para WhatsApp, SMS e e-mail. A inclusão fica na auditoria com seu usuário.</p>`,actions:[{label:'Cancelar'},{label:'Incluir',primary:true,onClick:(b,bg)=>{const c=$('#bl-c',bg).value.trim();if(!c){toast('Informe o telefone ou o e-mail','warn');return;}const mail=c.includes('@');const masked=mail?c[0]+'***@***'+c.slice(c.lastIndexOf('.')):'+55 '+c.replace(/\D/g,'').slice(0,2)+' 9****-'+c.replace(/\D/g,'').slice(-4);BLOQ.unshift({c:masked,tipo:mail?'E-mail':'Celular',placa:($('#bl-p',bg).value||'—').toUpperCase(),orig:$('#bl-o',bg).value,canal:$('#bl-m',bg).value||'não informado',em:'hoje 10:55',por:'Operação Próspera'});audAdd('Incluiu na lista de bloqueio',`Contato ${masked} · origem: ${$('#bl-o',bg).value.toLowerCase()}`,'Lista de bloqueio');closeModal();renderBloq();toast('Contato bloqueado nos três canais');}}]}));
+$('#tbl-bloq').addEventListener('click',async e=>{const b=e.target.closest('[data-unblock]');if(!b)return;const i=BLOQ.findIndex(x=>x.c===b.dataset.unblock);if(i<0)return;
+  if(await confirmDlg({title:'Retirar da lista de bloqueio',text:`Só o perfil de gestor pode retirar. O contato ${esc(BLOQ[i].c)} volta a receber avisos nos três canais, e a retirada fica registrada na auditoria com o motivo.`,ok:'Retirar (gestor)',danger:true})){const c=BLOQ[i].c;BLOQ.splice(i,1);audAdd('Retirou da lista de bloqueio',`Contato ${c} · retirada confirmada pelo gestor`,'Lista de bloqueio');renderBloq();toast('Contato retirado da lista','warn');}});
+hooks.bloqueio=params=>{if(params.has('origem'))bloqO.value=params.get('origem')||'';if(params.has('q'))bloqQ.value=params.get('q')||'';renderBloq();};
+renderBloq();
+
+/* ---------- parar todos os envios ---------- */
+function setStopped(on,quiet){stopped=on;$('#stopbar').hidden=!on;$$('.js-stopall').forEach(b=>{b.textContent=on?'Retomar os envios':'Parar todos os envios';if(!b.closest('.stopbar')){b.classList.toggle('btn-danger',!on);b.classList.toggle('btn-ok',on);}});if(!quiet)audAdd(on?'Parou todos os envios':'Retomou todos os envios',on?'WhatsApp, SMS e e-mail · lotes em envio e agendados ficaram parados':'Lotes de volta à fila · base de retorno conferida de novo','Disparos');renderLotes();}
+document.addEventListener('click',async e=>{const b=e.target.closest('.js-stopall');if(!b)return;
+  if(!stopped){if(await confirmDlg({title:'Parar todos os envios',text:'Nenhuma mensagem sai por WhatsApp, SMS ou e-mail até alguém retomar. Os lotes em envio e os agendados ficam parados. O que a WeTalk já aceitou não volta. A parada fica registrada na auditoria com seu usuário.',ok:'Parar tudo',danger:true})){setStopped(true);toast('Todos os envios parados','warn');}}
+  else if(await confirmDlg({title:'Retomar os envios',text:'Só o perfil de gestor pode retomar. Os lotes parados voltam para a fila e, antes de sair, o sistema confere de novo a base de retorno.',ok:'Retomar (gestor)'})){setStopped(false);toast('Envios retomados · lotes de volta à fila');}});
+function chkStop(){const p=parseHash().params.get('parado');if(p==='1'&&!stopped)setStopped(true,true);else if(p==='0'&&stopped)setStopped(false,true);}
+window.addEventListener('hashchange',chkStop);
+
+/* ---------- testar conexões e versões de texto ---------- */
+$('#btn-testar').addEventListener('click',e=>busy(e.currentTarget,1100,()=>openModal({title:'Teste de conexão',body:`<p class="small muted">Chamada de teste em cada fornecedor. Não envia mensagem e não gasta consulta.</p><table class="mini"><thead><tr><th>Fornecedor</th><th>Resultado</th><th>Detalhe</th></tr></thead><tbody><tr><td>WeTalk · acesso</td><td><span class="chip ok">Respondeu</span></td><td>entrou · token válido por mais 28 min</td></tr><tr><td>WeTalk · WhatsApp</td><td><span class="chip ok">Respondeu</span></td><td>3 modelos aprovados encontrados</td></tr><tr><td>WeTalk · SMS</td><td><span class="chip ok">Respondeu</span></td><td>rota de SMS comum ativa</td></tr><tr><td>WeTalk · E-mail</td><td><span class="chip warn">Sem teste</span></td><td>endereço de envio ainda não informado pela WeTalk</td></tr><tr><td>Score Positivo</td><td><span class="chip ok">Respondeu</span></td><td>310 ms</td></tr><tr><td>Débito Direto</td><td><span class="chip">Sem credencial</span></td><td>contrato em andamento</td></tr></tbody></table>`,actions:[{label:'Fechar',primary:true}]})));
+$('#btn-ver').addEventListener('click',()=>openModal({title:'Histórico de versões do texto',body:`<p class="small muted">Só a versão aprovada é enviada. Editar o texto cria uma versão nova, que espera aprovação.</p><table class="mini"><thead><tr><th>Versão</th><th>Situação</th><th>Quem aprovou</th><th>O que mudou</th></tr></thead><tbody><tr><td><b>3</b></td><td><span class="chip ok">Aprovada · em uso</span></td><td>Darío · 06/11/2026</td><td>Entrou o aviso "não pedimos senha nem cartão"</td></tr><tr><td>2</td><td><span class="chip">Substituída</span></td><td>Darío · 30/10/2026</td><td>Prazo de 16/11 no primeiro parágrafo</td></tr><tr><td>1</td><td><span class="chip">Substituída</span></td><td>Henrique · 28/10/2026</td><td>Primeira versão</td></tr></tbody></table><p class="small muted">No WhatsApp, cada versão também precisa da aprovação da Meta (1 a 2 dias). Os textos do D+25 (WhatsApp e SMS) e do D+30 (e-mail) ainda não têm aprovação.</p>`,actions:[{label:'Fechar',primary:true}]}));
+
+/* ---------- entrar (login + segundo fator) ---------- */
+['1','2','3'].forEach(n=>{$('#lg-logo-'+n).innerHTML=LOGO_SVG;});
+function loginStep(n){$$('#view-entrar [data-step]').forEach(el=>{el.hidden=+el.dataset.step!==n;});if(n===2){$$('#lg-code input').forEach(i=>i.value='');const f=$('#lg-code input');f&&f.focus();}renderGuide();}
+$('#lg-entrar').addEventListener('click',e=>{if(!$('#lg-email').value.trim()){toast('Informe o e-mail','warn');return;}busy(e.currentTarget,600,()=>{loginStep(2);toast('Código enviado · vale por 10 minutos','info');});});
+$('#lg-code').addEventListener('input',e=>{const i=e.target;i.value=i.value.replace(/\D/g,'').slice(0,1);if(i.value&&i.nextElementSibling)i.nextElementSibling.focus();});
+$('#lg-code').addEventListener('keydown',e=>{if(e.key==='Backspace'&&!e.target.value&&e.target.previousElementSibling)e.target.previousElementSibling.focus();});
+$('#lg-validar').addEventListener('click',e=>{const code=$$('#lg-code input').map(i=>i.value).join('');if(code.length<6){toast('Digite os 6 dígitos do código','warn');return;}busy(e.currentTarget,600,()=>{audAdd('Entrou','Senha + código de verificação','Acesso');go('painel',{tour:'0'});toast('Bem-vindo de volta');});});
+$('#lg-reenviar').addEventListener('click',()=>toast('Novo código enviado · o anterior deixou de valer','info'));
+$('#lg-esqueci').addEventListener('click',()=>loginStep(3));
+$('#lg-enviar-link').addEventListener('click',e=>busy(e.currentTarget,600,()=>{loginStep(1);toast('Se o e-mail existir, o link para criar a senha nova chega em instantes','info');}));
+$$('[data-lg-back]').forEach(b=>b.addEventListener('click',()=>loginStep(1)));
+hooks.entrar=params=>{const n=+params.get('passo')||1;loginStep(n);if(n===2&&params.get('codigo')){const c=params.get('codigo');$$('#lg-code input').forEach((i,k)=>{i.value=c[k]||'';});}};
+
 /* ---------- início ---------- */
 const savedGuide=store.get('vp_guia')==='1';if(savedGuide)setGuide(true);
+chkStop();
 route();
 })();
 </script>
