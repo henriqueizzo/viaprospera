@@ -647,6 +647,18 @@ body.login .content{padding:0}
 .aud-t{font-weight:600;white-space:nowrap}
 .tbl td.wrap{white-space:normal}
 @media (max-width:520px){.code6 input{width:38px;height:48px}}
+.wiz-map{max-height:300px;overflow:auto;padding-right:6px}
+.prev-wrap{overflow-x:auto;max-height:340px}
+.mini.prev th,.mini.prev td{white-space:nowrap;font-size:11.5px;padding:5px 8px}
+#tbl-layout td:nth-child(5){white-space:normal;color:var(--muted)}
+#tbl-layout td,#tbl-layout th{font-size:12.5px}
+.card-head .conf{align-self:flex-start}
+#view-financeiro .tbl td .conf{margin-left:4px}
+#tbl-fin-custo{min-width:0;width:100%}
+#tbl-fin-custo th,#tbl-fin-custo td{padding-left:10px;padding-right:10px}
+#tbl-fin-custo td.num{white-space:nowrap}
+#tbl-fin-custo td:first-child{white-space:normal}
+.mini.prev td:first-child,.mini.prev th:first-child{width:1%}
 </style>
 </head><body><a class="skip" href="#main">Pular para o conteúdo</a>
 <div class="topbar">
@@ -661,7 +673,7 @@ body.login .content{padding:0}
     </nav>
   </div>
   <div class="topbar-right">
-    <span class="badge-mock">Mockup v5 · dados fictícios</span>
+    <span class="badge-mock">Mockup v6 · dados fictícios</span>
     <div class="search" data-g="3" data-gt="Busca por placa|Digite uma placa e tecle Enter para abrir o veículo. Atalho: tecla /">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="gsearch" type="search" placeholder="Buscar placa" aria-label="Buscar placa" autocomplete="off">
@@ -679,7 +691,7 @@ body.login .content{padding:0}
 <div class="stopbar" id="stopbar" hidden role="alert"><span>Todos os envios estão parados.</span><small id="stopbar-who">Parado por Operação Próspera · hoje 10:52 · nenhuma mensagem sai por WhatsApp, SMS ou e-mail.</small><button class="btn btn-sm js-stopall">Retomar os envios</button></div>
 
 <div class="app" id="app">
-  <aside class="sidebar g-in" id="sidebar" data-g="7" data-gt="Menu do backoffice|Operação (Painel, Bases, Placas, Conversas), Notificação (Régua, Disparos), Relatórios (Consultas) e Sistema (Configurações, Auditoria e Lista de bloqueio). Os números são filas abertas.">
+  <aside class="sidebar g-in" id="sidebar" data-g="7" data-gt="Menu do backoffice|Operação (Painel, Bases, Placas, Conversas), Notificação (Régua, Disparos), Relatórios (Consultas e Financeiro) e Sistema (Configurações, Auditoria e Lista de bloqueio). Os números são filas abertas.">
     <div class="grp"><span>Operação</span>
       <a href="#painel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Painel</a>
       <a href="#bases"><svg viewBox="0 0 24 24"><path d="M12 21V9m0 0-4 4m4-4 4 4M4 4h16"/></svg>Bases<span class="count" id="cnt-bases">2 hoje</span></a>
@@ -692,6 +704,7 @@ body.login .content{padding:0}
     </div>
     <div class="grp"><span>Relatórios</span>
       <a href="#consultas"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M8 15V9m4 6V6m4 9v-4"/></svg>Consultas</a>
+      <a href="#financeiro"><svg viewBox="0 0 24 24"><path d="M12 3v18M16.5 7.5c0-1.7-2-3-4.5-3s-4.5 1.3-4.5 3 2 3 4.5 3 4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/></svg>Financeiro</a>
     </div>
     <div class="grp"><span>Sistema</span>
       <a href="#configuracoes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Configurações</a>
@@ -783,42 +796,46 @@ body.login .content{padding:0}
     <!-- ===================== BASES ===================== -->
     <section id="view-bases" hidden>
       <div class="page-head">
-        <div><h1>Bases</h1><p>Arquivos que entram (passagens da Way e pagamentos confirmados) e que saem (base enriquecida). Hoje chegam por e-mail e são carregados aqui; o corte é às 9h.</p></div>
-        <div class="actions"><button class="btn" id="btn-base-export" data-g="9" data-gt="Exportar base enriquecida|Devolve à concessionária a base com proprietário e contatos encontrados. É o modelo 'só enriquecimento', para quem notifica pelo canal próprio."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar base enriquecida</button><button class="btn btn-primary" id="btn-base-import" data-g="10" data-gt="Importar base|Sobe o arquivo do dia (passagens ou pagamentos confirmados), mapeia as colunas e processa: deduplica, consulta só placas novas, dá baixa em quem pagou e agenda os disparos."><svg viewBox="0 0 24 24"><path d="M12 21V9m0 0-4 4m4-4 4 4M4 4h16"/></svg>Importar base</button></div>
+        <div><h1>Bases</h1><p>Arquivos que entram (placas com cadastro, passagens em aberto e pagamentos confirmados) e que saem (base enriquecida). A base de placas sobe no mesmo formato do relatório de execução (.xlsx), sem precisar converter. O corte é às 9h.</p></div>
+        <div class="actions"><button class="btn" id="btn-base-export" data-g="9" data-gt="Exportar base enriquecida|Devolve à concessionária a base com proprietário e contatos encontrados. É o modelo 'só enriquecimento', para quem notifica pelo canal próprio."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar base enriquecida</button><button class="btn btn-primary" id="btn-base-import" data-g="10" data-gt="Importar base|Sobe o arquivo (placas com cadastro, passagens em aberto ou pagamentos confirmados), escolhe a aba, confere as colunas e a prévia e processa. A planilha do relatório de execução entra do jeito que está."><svg viewBox="0 0 24 24"><path d="M12 21V9m0 0-4 4m4-4 4 4M4 4h16"/></svg>Importar base</button></div>
       </div>
+      <div class="note warn" style="text-align:left" data-g="17" data-gt="O que o relatório de execução não traz|A planilha de placas com cadastro tem veículo, proprietário e contatos, mas não tem quantidade de passagens, valor nem prazo. Esses três dados continuam vindo no arquivo de passagens em aberto. A base de retorno (quem pagou) é o terceiro arquivo."><b>São três arquivos.</b> O relatório de execução (<b>placas com cadastro</b>) traz veículo, proprietário, e-mail, telefone e a marca de WhatsApp, mas <b>não traz quantidade de passagens, valor nem prazo</b>. Esses dados continuam vindo no arquivo de <b>passagens em aberto</b> da concessionária. A <b>base de retorno</b> (pagamentos confirmados) segue como terceiro arquivo.</div>
       <div class="hero-row" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))" data-g="11" data-gt="Resumo|Quantas bases de cada tipo já entraram, quando chegou a última e o próximo corte.">
-        <div class="tile"><div class="label">Bases de passagens</div><div class="value">7</div><div class="delta">última hoje 09:02 · 1.210 placas novas</div></div>
-        <div class="tile"><div class="label">Bases de retorno (pagos)</div><div class="value">6</div><div class="delta">última hoje 09:02 · 330 baixas</div></div>
-        <div class="tile"><div class="label">Bases enriquecidas devolvidas</div><div class="value">4</div><div class="delta">última ontem 18:10 · 1.180 placas</div></div>
-        <div class="tile"><div class="label">Próximo corte</div><div class="value">amanhã 9h</div><div class="delta">se a base de retorno não chegar, a régua segura</div></div>
+        <div class="tile"><div class="label">Placas com cadastro</div><div class="value">3</div><div class="delta">última hoje 08:50 · 1.210 placas · já vem enriquecida</div></div>
+        <div class="tile"><div class="label">Passagens em aberto</div><div class="value">4</div><div class="delta">última hoje 09:02 · 1.840 passagens</div></div>
+        <div class="tile"><div class="label">Bases de retorno (pagos)</div><div class="value">4</div><div class="delta">última hoje 09:02 · 330 baixas</div></div>
+        <div class="tile"><div class="label">Bases enriquecidas devolvidas</div><div class="value">1</div><div class="delta">última ontem 18:10 · 1.180 placas</div></div>
+        <div class="tile"><div class="label">Próximo corte</div><div class="value">amanhã 9h</div><div class="delta">se a base de retorno não chegar, os reforços esperam</div></div>
       </div>
-      <div class="ctabs" id="base-tabs" data-g="12" data-gt="Filtro por tipo|Passagens (entram), Pagamentos confirmados (entram e dão baixa) e Base enriquecida (sai para a Way)."><button class="on" data-f="">Todas</button><button data-f="Passagens">Passagens</button><button data-f="Pagamentos confirmados">Pagamentos confirmados</button><button data-f="Base enriquecida">Base enriquecida (devolvida)</button></div>
+      <div class="ctabs" id="base-tabs" data-g="12" data-gt="Filtro por tipo|Placas com cadastro (relatório de execução), Passagens em aberto, Pagamentos confirmados (dão baixa) e Base enriquecida (sai para a Way)."><button class="on" data-f="">Todas</button><button data-f="Placas com cadastro">Placas com cadastro</button><button data-f="Passagens em aberto">Passagens em aberto</button><button data-f="Pagamentos confirmados">Pagamentos confirmados</button><button data-f="Base enriquecida">Base enriquecida (devolvida)</button></div>
       <div data-g="13" data-gt="Histórico de bases|Cada linha é um arquivo. Veja quantas linhas vieram, quantas eram novas, quantas já existiam e quantas deram erro. Clique para abrir o relatório do processamento.">
       <div class="tbl-wrap"><table class="tbl" id="tbl-bases"><thead><tr><th>Arquivo</th><th>Tipo</th><th>Recebido</th><th>Origem</th><th class="r">Linhas</th><th class="r">Novas</th><th class="r">Já existiam</th><th class="r">Com erro</th><th>Status</th><th></th></tr></thead><tbody></tbody></table></div>
       </div>
       <div class="grid-2" style="margin-top:16px">
-        <div class="card" data-g="14" data-gt="Layout combinado|As colunas que a Way manda e as que devolvemos. Hoje a Way só tem a placa e os dados da passagem; o resto vem do enriquecimento.">
-          <div class="card-head"><div><h3>Layout combinado com a Way</h3><div class="sub">entrada mínima: placa + passagem · saída: base enriquecida</div></div><a class="link-btn" href="#configuracoes?aba=bases">Editar layout</a></div>
+        <div class="card" data-g="14" data-gt="Layout das placas com cadastro|As 17 colunas da aba 'Resultados das consultas' do relatório de execução, na ordem em que chegam. A coluna Lote pode vir como 'Arquivo do lote'. Colunas de controle no fim são aceitas e ignoradas.">
+          <div class="card-head"><div><h3>Layout · placas com cadastro</h3><div class="sub">planilha .xlsx ou .xlsm · aba "Resultados das consultas" · 17 colunas</div></div><a class="link-btn" href="#configuracoes?aba=bases">Ver layout completo</a></div>
           <div class="cols">
-            <div class="c"><b>placa</b><span>obrigatória · ABC1D23</span></div>
-            <div class="c"><b>id_passagem</b><span>obrigatória · 2610281432577280101 (o "Id" da Way)</span></div>
-            <div class="c"><b>data_hora</b><span>obrigatória · 28/10/2026 14:32</span></div>
-            <div class="c"><b>pedagio</b><span>obrigatória · P1 - JATAI - Leste</span></div>
-            <div class="c"><b>valor</b><span>obrigatório · 12,90</span></div>
-            <div class="c"><b>categoria</b><span>opcional · automóvel</span></div>
-            <div class="c"><b>grupo</b><span>opcional · G1, G2 ou G3</span></div>
-            <div class="c"><b>nome · telefone · e-mail</b><span>opcionais · se vierem, não consultamos</span></div>
-            <div class="c"><b>status_pagamento</b><span>só na base de retorno · pago + data</span></div>
+            <div class="c"><b>Item · Lote</b><span>Lote também é aceito como "Arquivo do lote"</span></div>
+            <div class="c"><b>Placa</b><span>obrigatória · ABC1D23</span></div>
+            <div class="c"><b>Renavam · Município · Estado · Procedência</b><span>dados do veículo</span></div>
+            <div class="c"><b>Marca · Modelo · Cor</b><span>dados do veículo</span></div>
+            <div class="c"><b>Tipo Documento · Documento</b><span>CPF ou CNPJ · vazio = sem cadastro</span></div>
+            <div class="c"><b>Nome/Razão Social · Endereço</b><span>proprietário</span></div>
+            <div class="c"><b>Email</b><span>opcional · validado na importação</span></div>
+            <div class="c"><b>Telefone</b><span>opcional · 10 ou 11 dígitos com DDD</span></div>
+            <div class="c"><b>WhatsApp</b><span>Sim ou Não</span></div>
+            <div class="c"><b>Status · Etapa · colunas de controle</b><span>aceitas e ignoradas</span></div>
           </div>
         </div>
-        <div class="card" data-g="15" data-gt="O que acontece a cada base|A sequência automática depois do upload. A consulta só roda para placas novas, para não pagar duas vezes pela mesma placa.">
+        <div class="card" data-g="15" data-gt="O que acontece a cada base|A sequência automática depois do upload. Como o relatório de execução já vem com proprietário e contatos, a consulta ao fornecedor só roda para as linhas sem cadastro.">
           <div class="card-head"><div><h3>O que acontece a cada base</h3></div></div>
           <ul class="checklist">
-            <li><i>1</i><div><b>Higieniza e deduplica</b><span>placa inválida, passagem repetida e linha sem valor vão para o relatório de erros</span></div></li>
-            <li><i>2</i><div><b>Consulta só as placas novas</b><span>Score Positivo por API (dados do veículo e cadastro da pessoa: endereço, telefone com flag de WhatsApp, e-mail); Débito Direto para dados do veículo; Senatran como fonte oficial</span></div></li>
-            <li><i>3</i><div><b>Aplica a base de retorno</b><span>quem a Way marcou como pago sai da régua na hora e não recebe mais aviso</span></div></li>
-            <li><i>4</i><div><b>Agenda os disparos do dia</b><span>D+1 para placas novas; D+3, D+7, D+15 para quem continua em aberto</span></div></li>
-            <li><i class="w">!</i><div><b>Se a base de retorno não chegar até o corte</b><span>os disparos de reforço ficam segurados até ela chegar (configurável)</span></div></li>
+            <li><i>1</i><div><b>Higieniza e deduplica</b><span>placa inválida, e-mail inválido, telefone com menos de 10 dígitos e linha repetida vão para o relatório de erros</span></div></li>
+            <li><i>2</i><div><b>Classifica o contato de cada placa</b><span>celular com WhatsApp, celular sem WhatsApp, celular em formato antigo, só fixo ou sem telefone com e-mail, sem canal</span></div></li>
+            <li><i>3</i><div><b>Consulta só as linhas sem cadastro</b><span>a base já vem enriquecida; o fornecedor só é chamado quando o Documento chega vazio</span></div></li>
+            <li><i>4</i><div><b>Junta com as passagens em aberto</b><span>quantidade, valor e prazo vêm do arquivo de passagens; placa sem passagem fica aguardando</span></div></li>
+            <li><i>5</i><div><b>Aplica a base de retorno e agenda os disparos</b><span>quem a Way marcou como pago sai da régua; D+1 para placas novas, reforços para quem continua em aberto</span></div></li>
+            <li><i class="w">!</i><div><b>Se a base de retorno não chegar até o corte</b><span>os reforços (D+3 em diante) esperam e o gestor é avisado</span></div></li>
           </ul>
         </div>
       </div>
@@ -945,8 +962,8 @@ body.login .content{padding:0}
           <div class="card-head"><div><h3>Aviso pelo app CNH Brasil × WhatsApp</h3><div class="sub">grupo G2 · 2.900 placas</div></div></div>
           <div class="bars">
             <div class="row"><b>Só o aviso da CNH Brasil</b><div class="bar"><i class="warn" style="width:6%"></i></div><span class="n">~1,5% pagaram</span></div>
-            <div class="row"><b>Após o WhatsApp da Próspera</b><div class="bar"><i class="ok" style="width:36%"></i></div><span class="n">9,1% pagaram</span></div>
-            <div class="row"><b>G1 (nunca avisado antes)</b><div class="bar"><i style="width:67%"></i></div><span class="n">16,8% pagaram</span></div>
+            <div class="row"><b>Após o WhatsApp da Próspera</b><div class="bar"><i class="ok" style="width:36%"></i></div><span class="n">8,9% pagaram</span></div>
+            <div class="row"><b>G1 (nunca avisado antes)</b><div class="bar"><i style="width:67%"></i></div><span class="n">16,4% pagaram</span></div>
           </div>
           <p class="small muted" style="margin-top:10px">Taxa da CNH Brasil informada pela Way como "muito baixa"; o número é ilustrativo até a Way confirmar.</p>
         </div>
@@ -1059,41 +1076,57 @@ body.login .content{padding:0}
       </div>
       <div id="cfg-bases" class="stack" hidden>
         <div class="card" data-g="12" data-gt="Como a base chega|Hoje por e-mail e upload manual. SFTP e API são a fase 2, quando a Way liberar a integração.">
-          <div class="card-head"><div><h3>Como a base chega</h3><div class="sub">entrada diária de passagens e base de retorno de pagamentos</div></div></div>
+          <div class="card-head"><div><h3>Como a base chega</h3><div class="sub">placas com cadastro (relatório de execução), passagens em aberto e base de retorno de pagamentos</div></div></div>
           <div class="form cfg-form">
             <label>Recebimento<select><option>E-mail → upload manual (fase 1)</option><option>Pasta SFTP (fase 2)</option><option>API da concessionária (fase 2)</option></select></label>
             <label>Horário de corte<input value="09:00"></label>
             <label>Quem sobe a base<select><option>Operação Próspera</option><option>Financeiro da Way (acesso próprio)</option></select></label>
             <label data-g="16" data-gt="Base de retorno atrasada|Regra fixa, sem opção de enviar mesmo assim: se a base de quem pagou não chega até o corte, os reforços esperam e o gestor é avisado. Assim ninguém que já pagou recebe cobrança.">Se a base de retorno não chegar<input value="Reforços esperam · gestor avisado" readonly></label>
-            <label>Formato aceito<input value="CSV, XLSX · até 50 MB · 500 mil linhas" readonly></label>
+            <label>Formato aceito<input value="XLSX, XLSM, CSV · até 50 MB · 500 mil linhas" readonly></label>
             <label>Quem é avisado do atraso<select><option>Gestor Próspera + Financeiro da Way (e-mail)</option><option>Só o gestor Próspera</option></select></label>
             <label>Baixa manual pela Way<select><option>Permitida (perfil Concessionária)</option><option>Só por base de retorno</option></select></label>
           </div>
           <div class="note" style="margin-top:14px">Quem pagou não é avisado. Por isso não existe a opção de enviar sem a base de retorno: enquanto ela não chega, os reforços (D+3 em diante) ficam segurados e o lote aparece em Disparos como "Segurado". Quando a base entra, o sistema tira quem pagou e solta o lote.</div>
         </div>
-        <div class="card" data-g="13" data-gt="Layout dos arquivos|Colunas de entrada (passagens), de retorno (pagamentos) e de saída (base enriquecida). O mapeamento na importação usa estes nomes.">
-          <div class="card-head"><div><h3>Layout dos arquivos</h3></div></div>
-          <div class="grid-3">
-            <div><div class="eyebrow" style="margin-bottom:8px">Entrada · passagens</div><div class="code">placa
+        <div class="card" data-g="13" data-gt="Layout dos arquivos|O arquivo de placas com cadastro segue o relatório de execução (aba 'Resultados das consultas'). Abaixo dele ficam os layouts de passagens em aberto, de retorno (pagamentos) e de saída (base enriquecida).">
+          <div class="card-head"><div><h3>Layout · placas com cadastro</h3><div class="sub">mesmo formato do relatório de execução · planilha .xlsx ou .xlsm · aba "Resultados das consultas"</div></div><button class="btn btn-sm" id="btn-modelo-layout" data-g="17" data-gt="Baixar modelo|Planilha vazia com as 17 colunas na ordem certa e uma linha de exemplo, para a concessionária preencher."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Baixar modelo</button></div>
+          <div class="tbl-wrap"><table class="mini" id="tbl-layout"><thead><tr><th>#</th><th>Coluna</th><th>Obrigatória</th><th>Exemplo</th><th>Observação</th></tr></thead><tbody>
+            <tr><td>1</td><td><b>Item</b></td><td>não</td><td>1</td><td>número da linha no relatório</td></tr>
+            <tr><td>2</td><td><b>Lote</b></td><td>não</td><td>FASTFLOW-20261107-004</td><td>nos arquivos mais novos vem como <b>Arquivo do lote</b>; os dois nomes são reconhecidos</td></tr>
+            <tr><td>3</td><td><b>Placa</b></td><td><span class="chip ok">sim</span></td><td>ABC1D23</td><td>7 caracteres; placa repetida no mesmo arquivo é ignorada</td></tr>
+            <tr><td>4</td><td><b>Renavam</b></td><td>não</td><td>0123*****89</td><td></td></tr>
+            <tr><td>5</td><td><b>Município</b></td><td>não</td><td>Campo Grande</td><td></td></tr>
+            <tr><td>6</td><td><b>Estado</b></td><td>não</td><td>MS</td><td></td></tr>
+            <tr><td>7</td><td><b>Procedência</b></td><td>não</td><td>Nacional</td><td></td></tr>
+            <tr><td>8</td><td><b>Marca</b></td><td>não</td><td>VW</td><td></td></tr>
+            <tr><td>9</td><td><b>Modelo</b></td><td>não</td><td>Gol 1.0</td><td></td></tr>
+            <tr><td>10</td><td><b>Cor</b></td><td>não</td><td>Prata</td><td></td></tr>
+            <tr><td>11</td><td><b>Tipo Documento</b></td><td>não</td><td>CPF ou CNPJ</td><td></td></tr>
+            <tr><td>12</td><td><b>Documento</b></td><td>não</td><td>***.456.789-**</td><td>vazio = placa sem cadastro; só essas linhas vão para a consulta ao fornecedor</td></tr>
+            <tr><td>13</td><td><b>Nome/Razão Social</b></td><td>não</td><td>J*** S. S****</td><td></td></tr>
+            <tr><td>14</td><td><b>Endereço</b></td><td>não</td><td>Rua ***, 120 · Campo Grande/MS</td><td></td></tr>
+            <tr><td>15</td><td><b>Email</b></td><td>não</td><td>j***@gmail.com</td><td>e-mail fora do formato vira "e-mail inválido" e não é usado</td></tr>
+            <tr><td>16</td><td><b>Telefone</b></td><td>não</td><td>67999990000</td><td>11 dígitos = celular; 10 dígitos começando por 2 a 5 = fixo; 10 dígitos começando por 6 a 9 = celular em formato antigo; menos de 10 = inválido</td></tr>
+            <tr><td>17</td><td><b>WhatsApp</b></td><td>não</td><td>Sim ou Não</td><td>marca informada pelo fornecedor</td></tr>
+            <tr><td class="muted">+</td><td class="muted">Status, Status execução, Etapa, Sublote, Mensagem de erro e outras colunas de controle</td><td class="muted">não</td><td class="muted">SUCCESS</td><td class="muted">aceitas e ignoradas</td></tr>
+          </tbody></table></div>
+          <div class="note warn" style="margin-top:14px;text-align:left">Esse formato não traz quantidade de passagens, valor nem prazo. Esses dados continuam vindo no arquivo de <b>passagens em aberto</b> (layout abaixo). A <b>base de retorno</b> segue como terceiro arquivo.</div>
+          <div class="grid-3" style="margin-top:16px">
+            <div><div class="eyebrow" style="margin-bottom:8px">Entrada · passagens em aberto</div><div class="code">placa
 id_passagem (o "Id" da Way)
 data_hora
 pedagio (ex.: P1 - JATAI - Leste)
 valor
 categoria (opcional)
-grupo (opcional: G1 G2 G3)
-nome, telefone, email (opcionais)</div></div>
+grupo (opcional: G1 G2 G3)</div></div>
             <div><div class="eyebrow" style="margin-bottom:8px">Retorno · pagamentos</div><div class="code">placa
 data_pagamento
 valor_pago
 passagens_quitadas (ids ou "todas")
 canal (portal, app, tag)</div></div>
-            <div><div class="eyebrow" style="margin-bottom:8px">Saída · base enriquecida</div><div class="code">placa
-nome
-cpf_mascarado
-telefone_1, flag_whatsapp
-telefone_2
-email
-fonte, data_consulta
+            <div><div class="eyebrow" style="margin-bottom:8px">Saída · base enriquecida</div><div class="code">as 17 colunas de entrada
+canal_do_aviso (WhatsApp, SMS, e-mail, sem canal)
+tipo_contato
 status_aviso, data_ultimo_aviso</div></div>
           </div>
         </div>
@@ -1230,6 +1263,81 @@ status_aviso, data_ultimo_aviso</div></div>
       </div>
     </section>
 
+    <!-- ===================== FINANCEIRO ===================== -->
+    <section id="view-financeiro" hidden>
+      <div class="page-head">
+        <div><h1>Relatório financeiro</h1><p>O resultado do serviço para a concessionária: quanto estava em aberto, quanto foi regularizado depois do aviso, quanto custou e o retorno. Pensado para a Way ler e exportar.</p></div>
+        <div class="actions"><label data-g="9" data-gt="Período|Mês do relatório. O piloto começou em 28/10, então outubro tem só quatro dias e novembro aparece como parcial."><select aria-label="Período" id="fin-periodo"><option value="piloto">Piloto · 28/10 a 07/11/2026</option><option value="out">Outubro de 2026 (28 a 31/10)</option><option value="nov">Novembro de 2026 (parcial)</option></select></label><button class="btn" id="btn-fin-pdf" data-g="10" data-gt="Exportar|PDF para apresentar à concessionária ou Excel com uma linha por placa e por mensagem cobrada."><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar PDF</button><button class="btn" id="btn-fin-xls"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>Exportar Excel</button></div>
+      </div>
+      <div class="note" style="margin-bottom:16px" data-g="18" data-gt="Quem recebe o pedágio|Na fase 1 a Próspera só avisa. O motorista paga no portal da concessionária, e o valor regularizado vem da base de retorno que a concessionária sobe todo dia.">Na fase 1 a Próspera <b>não recebe o pedágio</b>. O valor regularizado é pago no portal da concessionária e chega aqui pela base de retorno. Este relatório mostra o resultado do aviso e o custo do serviço.</div>
+      <div class="hero-row" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))" data-g="11" data-gt="Resultado|Do valor em aberto que chegou nas bases, quanto foi regularizado depois do aviso (pela base de retorno), a taxa de recuperação, o que continua em aberto e o que vence no prazo.">
+        <div class="tile"><div class="label">Em aberto recebido nas bases</div><div class="value">R$ 623,1 mil</div><div class="delta">48.300 passagens · 12.640 placas</div></div>
+        <div class="tile hero"><div class="label">Regularizado após o aviso</div><div class="value" style="font-size:32px;white-space:nowrap">R$ 91,8 mil</div><div class="delta">7.120 passagens · 1.940 placas · pela base de retorno</div></div>
+        <div class="tile"><div class="label">Taxa de recuperação</div><div class="value">14,7%</div><div class="delta">do valor · 15,4% das placas</div></div>
+        <div class="tile"><div class="label">Ainda em aberto</div><div class="value">R$ 531,2 mil</div><div class="delta">41.180 passagens · 10.700 placas</div></div>
+        <div class="tile crit"><div class="label">Vence em 16/11 · faltam 9 dias</div><div class="value">R$ 531,2 mil</div><div class="delta">depois do prazo cada passagem pode virar infração · vencido até hoje: R$ 0</div></div>
+      </div>
+      <div class="grid-12">
+        <div class="stack">
+          <div class="card" data-g="12" data-gt="Custo do serviço|O que entra na conta do período: placas consultadas com retorno, mensagens de WhatsApp faturadas (só Entregue e Lida), SMS cobrados (só Enviado, por parte de 160 caracteres) e e-mails enviados. Os preços são ilustrativos.">
+            <div class="card-head"><div><h3>Custo do serviço no período</h3><div class="sub">quantidade × preço unitário · só entra o que foi efetivamente entregue ou encontrado</div></div><span class="conf">preço a definir</span></div>
+            <div class="tbl-wrap" style="border:0"><table class="tbl" id="tbl-fin-custo"><thead><tr><th>Item</th><th class="r">Qtde.</th><th class="r">Preço (exemplo)</th><th class="r">Subtotal</th></tr></thead><tbody>
+              <tr><td><b>Placas consultadas com retorno</b><div class="small muted">enriquecimento · placa sem cadastro encontrado não entra</div></td><td class="r num">10.020</td><td class="r num">R$ 0,38</td><td class="r num">R$ 3.807,60</td></tr>
+              <tr><td><b>WhatsApp faturado</b><div class="small muted">só Entregue (5.870) e Lida (19.150) · falha, inválida e bloqueio não entram</div></td><td class="r num">25.020</td><td class="r num">R$ 0,12</td><td class="r num">R$ 3.002,40</td></tr>
+              <tr><td><b>SMS cobrado</b><div class="small muted">só Enviado · por parte de 160 caracteres · 3.252 mensagens de 1 parte</div></td><td class="r num">3.252</td><td class="r num">R$ 0,09</td><td class="r num">R$ 292,68</td></tr>
+              <tr><td><b>E-mail enviado</b><div class="small muted">regra de cobrança a confirmar com a WeTalk</div></td><td class="r num">1.100</td><td class="r num">R$ 0,02</td><td class="r num">R$ 22,00</td></tr>
+              <tr><td><b>Total a faturar</b></td><td></td><td></td><td class="r num"><b>R$ 7.124,68</b></td></tr>
+            </tbody></table></div>
+            <p class="small muted" style="margin-top:10px">Os preços unitários são exemplos para mostrar a conta. O modelo de cobrança (por placa consultada, por placa com retorno ou por notificação) ainda não foi fechado.</p>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card" data-g="15" data-gt="Retorno|Quanto foi regularizado para cada real gasto com o serviço, e quanto custou cada placa regularizada. Depende dos preços, que ainda são ilustrativos.">
+            <div class="card-head"><div><h3>Retorno do serviço</h3><div class="sub">valor regularizado ÷ custo do serviço</div></div><span class="conf">preço a definir</span></div>
+            <div class="kv">
+              <div><span>Para cada R$ 1 de custo</span><b style="font-size:22px;color:var(--ok)">R$ 12,89</b></div>
+              <div><span>Custo por placa regularizada</span><b style="font-size:22px">R$ 3,67</b></div>
+              <div><span>Valor regularizado</span><b>R$ 91.848,00</b></div>
+              <div><span>Custo do serviço</span><b>R$ 7.124,68</b></div>
+              <div><span>Custo sobre o regularizado</span><b>7,8%</b></div>
+              <div><span>Valor médio por placa regularizada</span><b>R$ 47,34</b></div>
+            </div>
+          </div>
+          <div class="card" data-g="16" data-gt="Evolução|Valor regularizado e custo por semana, ou por base de placas recebida. A base de retorno é diária, então a semana corrente é parcial.">
+            <div class="card-head"><div><h3>Evolução</h3><div class="sub">regularizado e custo</div></div><div class="ctabs" id="fin-evo-tabs"><button class="on" data-e="semana">Por semana</button><button data-e="base">Por base</button></div></div>
+            <table class="mini" id="tbl-fin-evo"><thead></thead><tbody></tbody></table>
+            <div class="bars" id="fin-evo-bars" style="margin-top:14px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="stack" style="margin-top:16px">
+      <div class="card" data-g="13" data-gt="Por canal|Placas avisadas em cada canal, quantas regularizaram, o valor regularizado e o custo das mensagens. O canal é o do contato que o cadastro trouxe.">
+        <div class="card-head"><div><h3>Resultado por canal</h3><div class="sub">custo só das mensagens · o enriquecimento aparece na tabela por grupo</div></div></div>
+        <div class="tbl-wrap" style="border:0"><table class="tbl" id="tbl-fin-canal"><thead><tr><th>Canal</th><th class="r">Placas avisadas</th><th class="r">Regularizadas</th><th class="r">Valor regularizado</th><th class="r">Custo das mensagens</th><th class="r">Custo por placa regularizada</th></tr></thead><tbody>
+          <tr><td><b>WhatsApp</b></td><td class="r num">9.360</td><td class="r num">1.690 · 18,1%</td><td class="r num">R$ 80.012</td><td class="r num">R$ 3.002,40</td><td class="r num">R$ 1,78</td></tr>
+          <tr><td><b>SMS</b></td><td class="r num">1.620</td><td class="r num">178 · 11,0%</td><td class="r num">R$ 8.427</td><td class="r num">R$ 292,68</td><td class="r num">R$ 1,64</td></tr>
+          <tr><td><b>E-mail</b></td><td class="r num">750</td><td class="r num">72 · 9,6%</td><td class="r num">R$ 3.409</td><td class="r num">R$ 22,00</td><td class="r num">R$ 0,31</td></tr>
+          <tr><td><b>Total</b></td><td class="r num"><b>11.730</b></td><td class="r num"><b>1.940 · 16,5%</b></td><td class="r num"><b>R$ 91.848</b></td><td class="r num"><b>R$ 3.317,08</b></td><td class="r num"><b>R$ 1,71</b></td></tr>
+        </tbody></table></div>
+        <p class="small muted" style="margin-top:10px">910 placas sem canal não foram avisadas e voltaram para a Way na base enriquecida.</p>
+      </div>
+      <div class="card" data-g="14" data-gt="Por grupo|G1 só placa, G2 já avisado pelo app CNH Brasil, G3 cadastrado no portal da Way. O G3 não tem custo de enriquecimento porque o contato veio da própria Way.">
+        <div class="card-head"><div><h3>Resultado por grupo</h3><div class="sub">custo = enriquecimento + mensagens</div></div></div>
+        <div class="tbl-wrap" style="border:0"><table class="tbl" id="tbl-fin-grupo"><thead><tr><th>Grupo</th><th class="r">Placas na base</th><th class="r">Regularizadas</th><th class="r">Valor regularizado</th><th class="r">Custo</th><th class="r">Retorno</th></tr></thead><tbody>
+          <tr><td><b>G1</b> <span class="small muted">sem vínculo (só placa)</span></td><td class="r num">7.900</td><td class="r num">1.296 · 16,4%</td><td class="r num">R$ 61.300</td><td class="r num">R$ 4.862,20</td><td class="r num">12,6×</td></tr>
+          <tr><td><b>G2</b> <span class="small muted">avisado pelo app CNH Brasil</span></td><td class="r num">2.900</td><td class="r num">258 · 8,9%</td><td class="r num">R$ 12.200</td><td class="r num">R$ 1.780,40</td><td class="r num">6,9×</td></tr>
+          <tr><td><b>G3</b> <span class="small muted">cadastrado na Way</span></td><td class="r num">1.840</td><td class="r num">386 · 21,0%</td><td class="r num">R$ 18.348</td><td class="r num">R$ 482,08</td><td class="r num">38,1×</td></tr>
+          <tr><td><b>Total</b></td><td class="r num"><b>12.640</b></td><td class="r num"><b>1.940 · 15,4%</b></td><td class="r num"><b>R$ 91.848</b></td><td class="r num"><b>R$ 7.124,68</b></td><td class="r num"><b>12,9×</b></td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="card" data-g="17" data-gt="Fechamentos|Um fechamento por mês: o total a faturar e em que ponto está. Aberto (mês correndo), Enviado à concessionária (aguardando aceite) ou Aprovado.">
+        <div class="card-head"><div><h3>Fechamentos</h3><div class="sub">aberto → enviado à concessionária → aprovado</div></div></div>
+        <table class="mini" id="tbl-fin-fech"><thead><tr><th>Mês</th><th class="r">Regularizado</th><th class="r">Total a faturar</th><th>Situação</th><th></th></tr></thead><tbody></tbody></table>
+        <p class="small muted" style="margin-top:10px">O fechamento leva o PDF deste relatório e o Excel com o detalhe por placa e por mensagem cobrada. Quem envia e quem aprova fica registrado na Auditoria.</p>
+      </div>
+      </div>
+    </section>
+
     <!-- ===================== AUDITORIA ===================== -->
     <section id="view-auditoria" hidden>
       <div class="page-head">
@@ -1322,7 +1430,7 @@ const NS='http://www.w3.org/2000/svg';
 const svgEl=(tag,attrs,txt)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;return e;};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-const TITLES={painel:'Painel',bases:'Bases',placas:'Placas',conversas:'Conversas e ocorrências',regua:'Régua de notificação',disparos:'Disparos',consultas:'Relatório de consultas',configuracoes:'Configurações',motorista:'Portal do motorista',whatsapp:'Simulador de mensagens',auditoria:'Auditoria',bloqueio:'Lista de bloqueio',entrar:'Entrar'};
+const TITLES={painel:'Painel',bases:'Bases',placas:'Placas',conversas:'Conversas e ocorrências',regua:'Régua de notificação',disparos:'Disparos',consultas:'Relatório de consultas',financeiro:'Relatório financeiro',configuracoes:'Configurações',motorista:'Portal do motorista',whatsapp:'Simulador de mensagens',auditoria:'Auditoria',bloqueio:'Lista de bloqueio',entrar:'Entrar'};
 const VIEWS=Object.keys(TITLES);
 const PORTAL_LINK='portal da Way Brasil';
 
@@ -1331,7 +1439,7 @@ const DAYS=['28/10','29/10','30/10','31/10','01/11','02/11','03/11','04/11','05/
 const ENVIADOS=[3120,2980,2640,2210,1540,980,2860,3410,3120,2890,1870];
 const REGULAR=[0,90,210,260,240,110,70,190,300,310,160];
 const FUNNEL=[['Placas na base da Way',12640],['Com proprietário e contato',11730],['Avisadas (3 canais)',11730],['Entregues',10980],['Leram o aviso',6900],['Clicaram no link do portal',2610],['Regularizadas (baixa da Way)',1940]];
-const GRUPOS=[['G1 · sem vínculo (só placa)',7900,16.8,'ok'],['G2 · avisado pelo app CNH Brasil',2900,9.1,'warn'],['G3 · cadastrado na Way',1840,21.5,'ok']];
+const GRUPOS=[['G1 · sem vínculo (só placa)',7900,16.4,'ok'],['G2 · avisado pelo app CNH Brasil',2900,8.9,'warn'],['G3 · cadastrado na Way',1840,21.0,'ok']];
 const STATUS={'Na régua':'info','Regularizada':'ok','Pausada':'warn','Encaminhada à Way':'viol','Aguardando decisão':'warn','Sem canal':''};
 const CT={wa:['wa','Celular com WhatsApp'],sms:['sms','Celular sem WhatsApp · SMS'],email:['email','Só telefone fixo · e-mail'],antigo:['antigo','Celular em formato antigo · a decidir'],none:['none','Sem canal']};
 const CANAL={wa:'WhatsApp',sms:'SMS',email:'E-mail',antigo:'a decidir',none:'nenhum'};
@@ -1389,15 +1497,18 @@ const ST_CANAL={
  email:{ult:'Entregue',fat:'',todos:'Enviado · Entregue · Aberto · Clicou · Devolvido (bounce)',obs:'Status de e-mail a confirmar com a WeTalk.'}
 };
 const BASES=[
- {arq:'way_passagens_2026-11-07.xlsx',tipo:'Passagens',quando:'hoje 09:02',quem:'Financeiro Way · e-mail',linhas:1840,novas:1210,exist:612,erro:18,status:'Processada'},
+ {arq:'relatorio-execucao-FASTFLOW-003.xlsx',tipo:'Placas com cadastro',quando:'hoje 08:50',quem:'Financeiro Way · upload',linhas:1228,novas:1210,exist:0,erro:18,status:'Processada'},
+ {arq:'way_passagens_2026-11-07.xlsx',tipo:'Passagens em aberto',quando:'hoje 09:02',quem:'Financeiro Way · e-mail',linhas:1840,novas:1822,exist:0,erro:18,status:'Processada'},
  {arq:'way_pagamentos_2026-11-07.csv',tipo:'Pagamentos confirmados',quando:'hoje 09:02',quem:'Financeiro Way · e-mail',linhas:330,novas:330,exist:0,erro:0,status:'Processada'},
  {arq:'provias_enriquecida_2026-11-06.csv',tipo:'Base enriquecida',quando:'ontem 18:10',quem:'Pro Vias → Way',linhas:1180,novas:1094,exist:0,erro:86,status:'Enviada'},
  {arq:'way_pagamentos_2026-11-06.csv',tipo:'Pagamentos confirmados',quando:'ontem 12:40',quem:'Financeiro Way · e-mail (atrasada)',linhas:310,novas:310,exist:0,erro:0,status:'Processada'},
- {arq:'way_passagens_2026-11-06.xlsx',tipo:'Passagens',quando:'ontem 09:00',quem:'Financeiro Way · e-mail',linhas:1650,novas:1180,exist:466,erro:4,status:'Processada'},
+ {arq:'relatorio-execucao-FASTFLOW-002.xlsx',tipo:'Placas com cadastro',quando:'ontem 08:55',quem:'Financeiro Way · upload',linhas:1184,novas:1180,exist:0,erro:4,status:'Processada'},
+ {arq:'way_passagens_2026-11-06.xlsx',tipo:'Passagens em aberto',quando:'ontem 09:00',quem:'Financeiro Way · e-mail',linhas:1650,novas:1646,exist:0,erro:4,status:'Processada'},
  {arq:'way_pagamentos_2026-11-05.csv',tipo:'Pagamentos confirmados',quando:'05/11 09:10',quem:'Financeiro Way · e-mail',linhas:300,novas:0,exist:0,erro:300,status:'Erro de layout'},
  {arq:'way_pagamentos_2026-11-05_v2.csv',tipo:'Pagamentos confirmados',quando:'05/11 10:30',quem:'Financeiro Way · e-mail',linhas:300,novas:300,exist:0,erro:0,status:'Processada'},
- {arq:'way_passagens_2026-11-05.xlsx',tipo:'Passagens',quando:'05/11 09:10',quem:'Financeiro Way · e-mail',linhas:1720,novas:1240,exist:472,erro:8,status:'Processada'},
- {arq:'way_base_inicial_2026-10-28.xlsx',tipo:'Passagens',quando:'28/10 08:40',quem:'Darío · e-mail',linhas:44300,novas:44116,exist:0,erro:184,status:'Processada'}
+ {arq:'way_passagens_2026-11-05.xlsx',tipo:'Passagens em aberto',quando:'05/11 09:10',quem:'Financeiro Way · e-mail',linhas:1720,novas:1712,exist:0,erro:8,status:'Processada'},
+ {arq:'way_passagens_2026-10-28.xlsx',tipo:'Passagens em aberto',quando:'28/10 08:45',quem:'Darío · e-mail',linhas:43274,novas:43120,exist:0,erro:154,status:'Processada'},
+ {arq:'relatorio-execucao-FASTFLOW-001.xlsx',tipo:'Placas com cadastro',quando:'28/10 08:40',quem:'Darío · e-mail',linhas:10434,novas:10250,exist:0,erro:184,status:'Processada'}
 ];
 const LOTES=[
  {id:'L-0148',quando:'hoje 09:30',etapa:'D+1 · Notificação inicial',canal:'E-mail',env:96,ent:94,lid:31,cli:7,resp:0,falha:2,status:'Concluído'},
@@ -1565,31 +1676,47 @@ function renderBases(){const rows=BASES.filter(b=>!baseFilter||b.tipo===baseFilt
 $('#base-tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b){baseFilter=b.dataset.f;renderBases();}});
 $('#tbl-bases').addEventListener('click',e=>{const tr=e.target.closest('tr.row-link');if(tr)openBase(tr.dataset.b);});
 $('#tbl-bases').addEventListener('keydown',e=>{if(e.key==='Enter'){const tr=e.target.closest('tr.row-link');if(tr&&e.target===tr)openBase(tr.dataset.b);}});
-function openBase(arq){const b=BASES.find(x=>x.arq===arq);if(!b)return;const pag=b.tipo==='Pagamentos confirmados',enr=b.tipo==='Base enriquecida',err=b.status==='Erro de layout';
+function openBase(arq){const b=BASES.find(x=>x.arq===arq);if(!b)return;const pag=b.tipo==='Pagamentos confirmados',enr=b.tipo==='Base enriquecida',cad=b.tipo==='Placas com cadastro',err=b.status==='Erro de layout';const wa=Math.round(b.novas*.7405),sm=Math.round(b.novas*.1282),em=Math.round(b.novas*.0593),an=Math.round(b.novas*.038),sc=b.novas-wa-sm-em-an,semcad=Math.round(b.novas*.023);
   const res=err?`<div class="note warn">A coluna <b>data_pagamento</b> veio como "Data Pgto" e o valor com ponto. O arquivo foi devolvido à Way e reenviado como _v2 às 10:30.</div>`:
    pag?`<div class="kv"><div><span>Linhas</span><b>${fmt(b.linhas)}</b></div><div><span>Baixas aplicadas</span><b style="color:var(--ok)">${fmt(b.novas)} placas</b></div><div><span>Saíram da régua</span><b>${fmt(b.novas)} placas · ${fmt(Math.round(b.novas*3.7))} passagens</b></div><div><span>Não encontradas</span><b>${b.erro} placas</b></div><div><span>Valor confirmado</span><b>${brl(b.novas*46.4)}</b></div><div><span>Disparos cancelados hoje</span><b>${fmt(Math.round(b.novas*0.8))}</b></div></div>`:
+   cad?`<div class="note" style="margin-bottom:12px"><b>Base já enriquecida.</b> Aba "Resultados das consultas" · 17 colunas reconhecidas · a consulta ao fornecedor rodou só para as ${fmt(semcad)} linhas sem cadastro.</div><div class="kv"><div><span>Linhas</span><b>${fmt(b.linhas)}</b></div><div><span>Placas com cadastro</span><b style="color:var(--ok)">${fmt(b.novas)}</b></div><div><span>Com erro</span><b ${b.erro?'style="color:var(--crit)"':''}>${fmt(b.erro)}</b></div><div><span>Sem cadastro (consultadas)</span><b>${fmt(semcad)}</b></div></div><h3>Contato de cada placa</h3><div class="kv"><div><span>Celular com WhatsApp</span><b style="color:var(--ok)">${fmt(wa)} · WhatsApp</b></div><div><span>Celular sem WhatsApp</span><b>${fmt(sm)} · SMS</b></div><div><span>Só fixo ou sem telefone, com e-mail</span><b>${fmt(em)} · e-mail</b></div><div><span>Celular em formato antigo</span><b style="color:var(--warn)">${fmt(an)} · a decidir</b></div><div><span>Sem canal</span><b>${fmt(sc)} · voltam para a Way</b></div></div><div class="note warn" style="margin-top:12px;text-align:left">Quantidade de passagens, valor e prazo não vêm neste arquivo: chegam pelo arquivo de passagens em aberto.</div>`:
    enr?`<div class="kv"><div><span>Placas devolvidas</span><b>${fmt(b.linhas)}</b></div><div><span>Com proprietário e contato</span><b style="color:var(--ok)">${fmt(b.novas)} · ${pct(b.novas,b.linhas)}%</b></div><div><span>Sem canal (devolvidas assim mesmo)</span><b>${fmt(b.erro)}</b></div><div><span>Celular com WhatsApp</span><b>${fmt(Math.round(b.novas*0.8))}</b></div><div><span>Celular sem WhatsApp</span><b>${fmt(Math.round(b.novas*0.14))}</b></div><div><span>Só fixo com e-mail</span><b>${fmt(b.novas-Math.round(b.novas*0.8)-Math.round(b.novas*0.14))}</b></div><div><span>Enviada para</span><b>financeiro da Way · e-mail</b></div><div><span>Formato</span><b>CSV · layout de saída</b></div></div>`:
    `<div class="kv"><div><span>Linhas</span><b>${fmt(b.linhas)}</b></div><div><span>Placas novas (consultadas)</span><b style="color:var(--ok)">${fmt(b.novas)}</b></div><div><span>Placas já existentes</span><b>${fmt(b.exist)} · só somam passagens</b></div><div><span>Com erro</span><b ${b.erro?'style="color:var(--crit)"':''}>${fmt(b.erro)}</b></div><div><span>Passagens adicionadas</span><b>${fmt(b.linhas-b.erro)}</b></div><div><span>Disparos D+1 agendados</span><b>${fmt(b.novas)} placas · hoje 09:30</b></div></div>`;
   openDrawerHtml(`<h2>${esc(b.arq)} <span class="chip ${BST[b.status]||''}">${b.status}</span></h2><p class="muted small">${b.tipo} · ${b.quando} · ${esc(b.quem)}</p>
    <h3>Resultado do processamento</h3>${res}
-   ${!pag&&!enr&&!err?`<h3>Erros (${b.erro})</h3><table class="mini"><thead><tr><th>Linha</th><th>Problema</th><th>Ação</th></tr></thead><tbody><tr><td>14</td><td>placa "ABC12" com 5 caracteres</td><td>rejeitada</td></tr><tr><td>211</td><td>passagem repetida (mesma placa, data e pórtico)</td><td>ignorada</td></tr><tr><td>640</td><td>valor em branco</td><td>rejeitada</td></tr><tr><td colspan="3" class="muted">… e mais ${Math.max(0,b.erro-3)} linhas no relatório</td></tr></tbody></table>`:''}
+   ${!pag&&!enr&&!err?`<h3>Erros (${b.erro})</h3><table class="mini"><thead><tr><th>Linha</th><th>Problema</th><th>Ação</th></tr></thead><tbody>${cad?'<tr><td>14</td><td>placa "QJK5L6" com 6 caracteres</td><td>rejeitada</td></tr><tr><td>211</td><td>placa repetida no mesmo arquivo</td><td>ignorada</td></tr><tr><td>640</td><td>e-mail fora do formato ("lfm@gmail")</td><td>e-mail não é usado</td></tr><tr><td>702</td><td>telefone com menos de 10 dígitos</td><td>telefone não é usado</td></tr>':'<tr><td>14</td><td>placa "ABC12" com 5 caracteres</td><td>rejeitada</td></tr><tr><td>211</td><td>passagem repetida (mesma placa, data e pórtico)</td><td>ignorada</td></tr><tr><td>640</td><td>valor em branco</td><td>rejeitada</td></tr>'}<tr><td colspan="3" class="muted">… e mais ${Math.max(0,b.erro-3)} linhas no relatório</td></tr></tbody></table>`:''}
    <div class="actions" style="margin-top:16px"><button class="btn btn-primary" data-act="rel" data-g="16" data-gt="Baixar relatório|CSV com o resultado linha a linha: o que entrou, o que foi ignorado e por quê.">Baixar relatório</button>${err?'<button class="btn" data-act="reproc">Reprocessar</button>':''}<button class="btn" data-act="orig">Baixar arquivo original</button></div>`,'Base');
-  $('#drawer').addEventListener('click',e=>{const x=e.target.closest('[data-act]');if(!x)return;if(x.dataset.act==='rel')toast('relatorio-'+b.arq.replace(/\.(xlsx|csv)$/,'')+'.csv baixado','info');if(x.dataset.act==='orig')toast(b.arq+' baixado','info');if(x.dataset.act==='reproc')toast('Use a versão _v2, já processada às 10:30','warn');});}
-function importWizard(){let step=0,tipo='Passagens';const STEPS_W=['Arquivo','Tipo','Colunas','Processar'];
-  const render=(bg)=>{$('#wiz',bg).innerHTML=STEPS_W.map((s,i)=>`<span class="${i===step?'on':i<step?'done':''}">${i+1}. ${s}</span>`).join('');const body=$('#wiz-body',bg);
-    if(step===0)body.innerHTML=`<div class="drop" id="drop" tabindex="0"><b>Arraste o arquivo da Way aqui ou clique para escolher</b>CSV ou XLSX · até 50 MB · 500 mil linhas</div><p class="small muted">Hoje a Way manda por e-mail; quem recebe sobe aqui. Na fase 2 o arquivo pode chegar por SFTP ou API.</p>`;
-    if(step===1)body.innerHTML=`<div class="form"><label>Tipo de base<select id="wiz-tipo"><option ${tipo==='Passagens'?'selected':''}>Passagens</option><option ${tipo==='Pagamentos confirmados'?'selected':''}>Pagamentos confirmados</option></select></label><label>Concessionária<select><option>Way Brasil</option></select></label><label>Data de referência<input type="date" value="2026-11-07"></label><label>Grupo padrão (se o arquivo não trouxer)<select><option>Deduzir pelas colunas preenchidas</option><option>G1 · só placa</option><option>G2 · avisado pela CNH Digital</option><option>G3 · cadastro no portal</option></select></label></div><p class="small muted"><b>Passagens</b> cria placas e passagens e agenda o D+1. <b>Pagamentos confirmados</b> dá baixa e tira da régua.</p>`;
-    if(step===2){const cols=tipo==='Passagens'?[['Placa','placa'],['Id','id_passagem'],['Data','data_hora'],['Valor','valor'],['Pedágio','pedagio'],['Origem','grupo']]:[['Placa','placa'],['Data Pgto','data_pagamento'],['Valor','valor_pago'],['Pedido','pedido (ch_…)'],['Ids','passagens_quitadas'],['Canal','canal']];
-      body.innerHTML=`<p class="small muted">Colunas do arquivo da Way à esquerda; campos do Pro Vias à direita. O sistema lembra o mapeamento para a próxima base.</p><div class="map">${cols.map(([a,b])=>`<code>${a}</code><span class="arr">→</span><select><option>${b}</option><option>ignorar</option></select>`).join('')}</div><p class="small muted" style="margin-top:8px">Prévia: 1.840 linhas · 18 com problema (placa curta, valor em branco, duplicada).</p>`;}
-    if(step===3)body.innerHTML=`<ul class="checklist"><li><i>1</i><div><b>Higienizar e deduplicar</b><span>18 linhas vão para o relatório de erros</span></div></li><li><i>2</i><div><b>Consultar 1.210 placas novas</b><span>Score Positivo (veículo + cadastro da pessoa) · custo estimado R$ 460 (ilustrativo)</span></div></li><li><i>3</i><div><b>Aplicar base de retorno</b><span>${tipo==='Passagens'?'não se aplica a esta base':'330 placas saem da régua'}</span></div></li><li><i>4</i><div><b>Agendar disparos</b><span>${tipo==='Passagens'?'D+1 para 1.210 placas às 09:30':'cancela os reforços de quem pagou'}</span></div></li></ul>`;
-    $$('.mf .btn',bg).forEach(b=>b.hidden=false);$('#wiz-prev',bg).hidden=step===0;$('#wiz-next',bg).textContent=step===3?'Processar base':'Continuar';
-    const d=$('#drop',bg);if(d)d.addEventListener('click',()=>{d.innerHTML='<b>way_passagens_2026-11-07.xlsx</b>1.840 linhas · pronto';});const ts=$('#wiz-tipo',bg);if(ts)ts.addEventListener('change',e=>tipo=e.target.value);};
+  $('#drawer').addEventListener('click',e=>{const x=e.target.closest('[data-act]');if(!x)return;if(x.dataset.act==='rel')toast('erros-'+b.arq.replace(/\.(xlsx|xlsm|csv)$/,'')+'.csv baixado','info');if(x.dataset.act==='orig')toast(b.arq+' baixado','info');if(x.dataset.act==='reproc')toast('Use a versão _v2, já processada às 10:30','warn');});}
+const TIPO_W={placas:'Placas com cadastro',passagens:'Passagens em aberto',pagamentos:'Pagamentos confirmados'};
+const COLS_EXEC=['Item','Lote','Placa','Renavam','Município','Estado','Procedência','Marca','Modelo','Cor','Tipo Documento','Documento','Nome/Razão Social','Endereço','Email','Telefone','WhatsApp'];
+const PREV_EXEC=[
+ ['1','FASTFLOW-20261107-004','QAB1C23','0123*****89','Campo Grande','MS','Nacional','VW','Gol 1.0','Prata','CPF','***.456.789-**','J*** S. S****','Rua ***, 120 · Campo Grande/MS','j***@gmail.com','6799***4321','Sim',['ok','celular com WhatsApp']],
+ ['2','FASTFLOW-20261107-004','QCD4E56','0456*****12','Dourados','MS','Nacional','Fiat','Strada','Branca','CNPJ','**.345.678/0001-**','Transportes B*** Ltda.','Av. ***, 2000 · Dourados/MS','frota@b***.com.br','6733**2200','Não',['info','só fixo · e-mail']],
+ ['3','FASTFLOW-20261107-004','QEF7G89','0789*****45','Três Lagoas','MS','Nacional','GM','Onix','Preta','CPF','***.123.456-**','M**** R. C****','Rua ***, 45 · Três Lagoas/MS','m***@hotmail.com','6798***7740','Não',['info','celular sem WhatsApp · SMS']],
+ ['4','FASTFLOW-20261107-004','QGH2J34','0234*****67','Campo Grande','MS','Nacional','Toyota','Hilux','Prata','CNPJ','**.987.654/0001-**','Agro P*** S.A.','Rod. ***, km 12 · Campo Grande/MS','contato@agro***.com.br','6791**3300','Não',['warn','celular em formato antigo']],
+ ['5','FASTFLOW-20261107-004','QJK5L6','0567*****90','Jataí','GO','Nacional','Honda','Civic','Cinza','CPF','***.222.333-**','A*** P. R****','Rua ***, 9 · Jataí/GO','a***@yahoo.com','6499***1100','Sim',['crit','placa inválida (6 caracteres)']],
+ ['6','FASTFLOW-20261107-004','QMN8P90','','','','','','','','','','','','','','',['warn','documento vazio · sem cadastro']],
+ ['7','FASTFLOW-20261107-004','QRS1T23','0890*****34','Corumbá','MS','Nacional','Ford','Ka','Vermelha','CPF','***.777.888-**','L*** F. M****','Rua ***, 300 · Corumbá/MS','lfm@gmail','6732**4410','Não',['warn','e-mail inválido · sem canal']],
+ ['8','FASTFLOW-20261107-004','QUV4X56','0321*****78','Ponta Porã','MS','Nacional','Renault','Kwid','Branca','CPF','***.999.000-**','R**** T. L****','Rua ***, 77 · Ponta Porã/MS','','67999***','Não',['warn','telefone com menos de 10 dígitos · sem canal']]
+];
+function importWizard(start){let step=0,tipo='Placas com cadastro',file=false;const STEPS_W=['Arquivo','Tipo e aba','Colunas','Prévia','Processar'];
+  if(start){if(start.tipo&&TIPO_W[start.tipo])tipo=TIPO_W[start.tipo];step=Math.min(4,Math.max(0,(+start.passo||1)-1));file=step>0;}
+  const arq=()=>tipo==='Placas com cadastro'?'relatorio-execucao-FASTFLOW-004.xlsx':tipo==='Passagens em aberto'?'way_passagens_2026-11-07.xlsx':'way_pagamentos_2026-11-07.csv';
+  const render=(bg)=>{$('#wiz',bg).innerHTML=STEPS_W.map((s,i)=>`<span class="${i===step?'on':i<step?'done':''}">${i+1}. ${s}</span>`).join('');const body=$('#wiz-body',bg);const pl=tipo==='Placas com cadastro',ps=tipo==='Passagens em aberto';
+    if(step===0)body.innerHTML=`<div class="drop" id="drop" tabindex="0">${file?`<b>${arq()}</b>1.228 linhas · 4 abas · pronto`:'<b>Arraste o arquivo aqui ou clique para escolher</b>Excel (.xlsx ou .xlsm) ou CSV · até 50 MB · 500 mil linhas'}</div><p class="small muted">O relatório de execução entra do jeito que está, sem converter. Passagens em aberto e pagamentos confirmados sobem por aqui também.</p>`;
+    if(step===1)body.innerHTML=`<div class="form"><label>Tipo de base<select id="wiz-tipo">${Object.values(TIPO_W).map(t=>`<option ${tipo===t?'selected':''}>${t}</option>`).join('')}</select></label><label>Aba da planilha<select>${pl?'<option>Resultados das consultas (1.228 linhas)</option><option>Resumo</option><option>Pendências</option><option>Validação e fontes</option>':'<option>Planilha1</option>'}</select></label><label>Concessionária<select><option>Way Brasil</option></select></label><label>Data de referência<input type="date" value="2026-11-07"></label></div>${pl?'<div class="note" style="margin-top:12px"><b>Essa base já vem enriquecida.</b> O arquivo traz proprietário, e-mail, telefone e a marca de WhatsApp. A consulta ao fornecedor só roda para as linhas sem cadastro (Documento vazio).</div><div class="note warn" style="margin-top:8px;text-align:left">Esse formato não traz quantidade de passagens, valor nem prazo. Suba também o arquivo de <b>passagens em aberto</b>.</div>':`<p class="small muted" style="margin-top:10px">${ps?'<b>Passagens em aberto</b> soma as passagens, o valor e o prazo às placas que já têm cadastro.':'<b>Pagamentos confirmados</b> dá baixa e tira da régua.'}</p>`}`;
+    if(step===2){const cols=pl?COLS_EXEC.map(c=>[c==='Lote'?'Arquivo do lote':c,c==='Lote'?'Lote (aceita "Lote" ou "Arquivo do lote")':c]).concat([['Sublote','ignorar'],['Status execução','ignorar'],['Etapa final','ignorar'],['Mensagem de erro','ignorar']]):ps?[['Placa','placa'],['Id','id_passagem'],['Data','data_hora'],['Valor','valor'],['Pedágio','pedagio'],['Origem','grupo']]:[['Placa','placa'],['Data Pgto','data_pagamento'],['Valor','valor_pago'],['Pedido','pedido (ch_…)'],['Ids','passagens_quitadas'],['Canal','canal']];
+      body.innerHTML=`<p class="small muted">${pl?'As 17 colunas foram reconhecidas pelo nome. As colunas de controle do fim do arquivo são aceitas e ignoradas.':'Colunas do arquivo à esquerda; campos do Pro Vias à direita.'} O sistema lembra o mapeamento para a próxima base.</p><div class="map wiz-map">${cols.map(([a,b])=>`<code>${a}</code><span class="arr">→</span><select><option>${b}</option>${b==='ignorar'?'':'<option>ignorar</option>'}</select>`).join('')}</div>${pl?'<p class="small" style="margin-top:10px;color:var(--ok)"><b>17 de 17 colunas reconhecidas</b> · 4 colunas de controle ignoradas</p>':''}`;}
+    if(step===3)body.innerHTML=pl?`<p class="small muted">Primeiras 8 linhas da aba "Resultados das consultas". A primeira coluna mostra como cada linha será tratada; role para o lado para ver as 17 colunas.</p><div class="tbl-wrap prev-wrap"><table class="mini prev"><thead><tr><th>Validação</th>${COLS_EXEC.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${PREV_EXEC.map(r=>`<tr><td><span class="chip ${r[17][0]==='ok'?'ok':r[17][0]==='crit'?'crit':r[17][0]==='warn'?'warn':'info'}">${r[17][1]}</span></td>${r.slice(0,17).map(v=>`<td>${esc(v)||'<span class="muted">vazio</span>'}</td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="kv" style="margin-top:12px"><div><span>Linhas lidas</span><b>1.228</b></div><div><span>Placa inválida</span><b style="color:var(--crit)">6 · rejeitadas</b></div><div><span>Placa repetida</span><b>12 · ignoradas</b></div><div><span>Documento vazio</span><b>28 · sem cadastro</b></div><div><span>E-mail inválido</span><b>41 · e-mail não é usado</b></div><div><span>Telefone com menos de 10 dígitos</span><b>19 · telefone não é usado</b></div></div>`:`<p class="small muted">Prévia: ${ps?'1.840 linhas · 18 com problema (placa curta, valor em branco, duplicada).':'330 linhas · nenhuma com problema.'}</p>`;
+    if(step===4)body.innerHTML=pl?`<ul class="checklist"><li><i>1</i><div><b>Higienizar e deduplicar</b><span>18 linhas vão para o relatório de erros (6 placas inválidas, 12 repetidas)</span></div></li><li><i>2</i><div><b>Classificar o contato de 1.210 placas</b><span>pelas colunas Telefone, WhatsApp e Email</span></div></li><li><i>3</i><div><b>Consultar só as 28 linhas sem cadastro</b><span>a base já vem enriquecida · custo estimado R$ 10,64 (ilustrativo)</span></div></li><li><i>4</i><div><b>Juntar com as passagens em aberto</b><span>placa sem passagem fica aguardando o arquivo de passagens</span></div></li></ul><h3 style="margin-top:14px">Como as 1.210 placas ficam</h3><div class="kv"><div><span>Celular com WhatsApp</span><b style="color:var(--ok)">896 · WhatsApp</b></div><div><span>Celular sem WhatsApp</span><b>155 · SMS</b></div><div><span>Só fixo ou sem telefone, com e-mail</span><b>72 · e-mail</b></div><div><span>Celular em formato antigo</span><b style="color:var(--warn)">46 · a decidir</b></div><div><span>Sem canal</span><b>41 · voltam para a Way</b></div></div>`:`<ul class="checklist"><li><i>1</i><div><b>Higienizar e deduplicar</b><span>${ps?'18 linhas vão para o relatório de erros':'nenhuma linha com erro'}</span></div></li><li><i>2</i><div><b>${ps?'Somar passagens, valor e prazo às placas':'Aplicar base de retorno'}</b><span>${ps?'1.822 passagens em 1.210 placas com cadastro':'330 placas saem da régua'}</span></div></li><li><i>3</i><div><b>Agendar disparos</b><span>${ps?'D+1 para 1.210 placas às 09:30':'cancela os reforços de quem pagou'}</span></div></li></ul>`;
+    $$('.mf .btn',bg).forEach(b=>b.hidden=false);$('#wiz-prev',bg).hidden=step===0;$('#wiz-next',bg).textContent=step===4?'Processar base':'Continuar';
+    const d=$('#drop',bg);if(d)d.addEventListener('click',()=>{file=true;d.innerHTML=`<b>${arq()}</b>1.228 linhas · 4 abas · pronto`;});const ts=$('#wiz-tipo',bg);if(ts)ts.addEventListener('change',e=>{tipo=e.target.value;render(bg);});};
   openModal({title:'Importar base',wide:true,sticky:true,body:`<div class="wiz" id="wiz"></div><div id="wiz-body"></div>`,
-    actions:[{label:'Cancelar'},{label:'Voltar',onClick:(b,bg)=>{step=Math.max(0,step-1);render(bg);}},{label:'Continuar',primary:true,onClick:(b,bg)=>{if(step<3){step++;render(bg);}else busy(b,1400,()=>{closeModal();toast(tipo==='Passagens'?'Base processada: 1.210 placas novas consultadas · 18 linhas com erro · D+1 agendado para 09:30':'Base de retorno aplicada: 330 placas saíram da régua · 0 erros');BASES.unshift({arq:tipo==='Passagens'?'way_passagens_2026-11-07_v2.xlsx':'way_pagamentos_2026-11-07_v2.csv',tipo,quando:'agora',quem:'Operação Próspera',linhas:tipo==='Passagens'?1840:330,novas:tipo==='Passagens'?1210:330,exist:tipo==='Passagens'?612:0,erro:tipo==='Passagens'?18:0,status:'Processada'});renderBases();});}}],
+    actions:[{label:'Cancelar'},{label:'Voltar',onClick:(b,bg)=>{step=Math.max(0,step-1);render(bg);}},{label:'Continuar',primary:true,onClick:(b,bg)=>{if(step<4){step++;render(bg);}else busy(b,1400,()=>{closeModal();const pl=tipo==='Placas com cadastro',ps=tipo==='Passagens em aberto';toast(pl?'Base processada: 1.210 placas com cadastro · 28 sem cadastro foram para consulta · 18 linhas com erro':ps?'Passagens somadas: 1.822 passagens em 1.210 placas · D+1 agendado para 09:30':'Base de retorno aplicada: 330 placas saíram da régua · 0 erros');BASES.unshift({arq:pl?'relatorio-execucao-FASTFLOW-004.xlsx':ps?'way_passagens_2026-11-07_v2.xlsx':'way_pagamentos_2026-11-07_v2.csv',tipo,quando:'agora',quem:'Operação Próspera',linhas:pl?1228:ps?1840:330,novas:pl?1210:ps?1822:330,exist:0,erro:pl||ps?18:0,status:'Processada'});renderBases();});}}],
     onOpen:bg=>{$$('.mf .btn',bg)[1].id='wiz-prev';$$('.mf .btn',bg)[2].id='wiz-next';render(bg);}});}
-$('#btn-base-import').addEventListener('click',importWizard);
+$('#btn-base-import').addEventListener('click',()=>importWizard());
 $('#btn-base-export').addEventListener('click',()=>openModal({title:'Exportar base enriquecida',body:`<p class="small muted">Devolve à Way a base com proprietário, telefones (celular ou fixo, com a flag de WhatsApp), e-mail, canal usado (WhatsApp, SMS, e-mail ou sem canal), fonte e status do aviso. Serve para quem quer notificar pelo canal próprio ou conferir o que fizemos.</p><div class="form"><label>Período<select><option>Base de hoje (1.210 placas)</option><option>Últimos 7 dias</option><option>Tudo (12.640 placas)</option></select></label><label>Incluir<select><option>Todas, inclusive sem canal</option><option>Só placas sem canal</option><option>Só placas avisadas</option></select></label><label>Formato<select><option>CSV</option><option>Excel (.xlsx)</option></select></label><label>Enviar para<select><option>Financeiro Way (e-mail)</option><option>Só baixar</option></select></label></div>`,actions:[{label:'Cancelar'},{label:'Gerar e enviar',primary:true,onClick:b=>busy(b,1000,()=>{closeModal();toast('provias_enriquecida_2026-11-07.csv gerada · 1.210 placas · enviada ao financeiro da Way');})}]}));
-hooks.bases=()=>renderBases();
+hooks.bases=params=>{if(params.has('filtro'))baseFilter=params.get('filtro')||'';renderBases();if(params.get('abrir'))openBase(params.get('abrir'));if(params.get('importar'))importWizard({tipo:params.get('tipo')||'placas',passo:params.get('passo')||1});};
 renderBases();
 
 /* ---------- placas ---------- */
@@ -1996,6 +2123,30 @@ $('#lg-esqueci').addEventListener('click',()=>loginStep(3));
 $('#lg-enviar-link').addEventListener('click',e=>busy(e.currentTarget,600,()=>{loginStep(1);toast('Se o e-mail existir, o link para criar a senha nova chega em instantes','info');}));
 $$('[data-lg-back]').forEach(b=>b.addEventListener('click',()=>loginStep(1)));
 hooks.entrar=params=>{const n=+params.get('passo')||1;loginStep(n);if(n===2&&params.get('codigo')){const c=params.get('codigo');$$('#lg-code input').forEach((i,k)=>{i.value=c[k]||'';});}};
+
+/* ---------- relatório financeiro ---------- */
+const FIN_EVO={
+ semana:{head:['Semana','Regularizadas','Regularizado','Custo'],rows:[['28/10 a 01/11',800,37875,4010.30],['02/11 a 07/11 (parcial)',1140,53973,3114.38]]},
+ base:{head:['Base de placas','Regularizadas','Regularizado','Custo'],rows:[['FASTFLOW-001 · 28/10',1702,80579,6183.40],['FASTFLOW-002 · 06/11',196,9279,495.20],['FASTFLOW-003 · hoje',42,1990,446.08]]}};
+const FIN_FECH=[{mes:'Novembro de 2026 (parcial)',reg:65335,tot:4190.58,sit:'Aberto'},{mes:'Outubro de 2026 (28 a 31/10)',reg:26513,tot:2934.10,sit:'Aprovado'}];
+const FIN_SIT={'Aberto':'warn','Enviado à concessionária':'info','Aprovado':'ok'};
+let finEvo='semana';
+function renderFinEvo(){const d=FIN_EVO[finEvo];const max=Math.max(...d.rows.map(r=>r[2]));
+  $('#tbl-fin-evo thead').innerHTML='<tr>'+d.head.map((h,i)=>`<th${i?' class="r"':''}>${h}</th>`).join('')+'</tr>';
+  $('#tbl-fin-evo tbody').innerHTML=d.rows.map(r=>`<tr><td>${r[0]}</td><td class="r num">${fmt(r[1])}</td><td class="r num">${brl(r[2])}</td><td class="r num">${brl(r[3])}</td></tr>`).join('');
+  $('#fin-evo-bars').innerHTML=d.rows.map(r=>`<div class="row"><b>${r[0].split(' · ')[0].replace(' (parcial)','')}</b><div class="bar"><i class="ok" style="width:${Math.round(r[2]/max*100)}%"></i></div><span class="n">${brl(r[2]).replace(',00','')}</span></div>`).join('');
+  $$('#fin-evo-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.e===finEvo));}
+function renderFinFech(){$('#tbl-fin-fech tbody').innerHTML=FIN_FECH.map((f,i)=>`<tr><td><b>${f.mes}</b></td><td class="r num">${brl(f.reg).replace(',00','')}</td><td class="r num">${brl(f.tot)}</td><td><span class="chip ${FIN_SIT[f.sit]}">${f.sit}</span></td><td class="r">${f.sit==='Aberto'?`<button class="btn btn-sm" data-fech="${i}">Enviar à concessionária</button>`:f.sit==='Enviado à concessionária'?`<button class="btn btn-sm btn-ghost" data-fech="${i}">Marcar como aprovado</button>`:'<button class="btn btn-sm btn-ghost" data-fech-pdf="1">Baixar PDF</button>'}</td></tr>`).join('');}
+$('#fin-evo-tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b){finEvo=b.dataset.e;renderFinEvo();}});
+$('#tbl-fin-fech').addEventListener('click',async e=>{const p=e.target.closest('[data-fech-pdf]');if(p){toast('fechamento-way-2026-10.pdf baixado','info');return;}const b=e.target.closest('[data-fech]');if(!b)return;const f=FIN_FECH[+b.dataset.fech];
+  if(f.sit==='Aberto'){if(await confirmDlg({title:'Enviar fechamento à concessionária',text:`${f.mes}: total a faturar ${brl(f.tot)}. O financeiro da Way recebe o PDF e o Excel com o detalhe. Os preços ainda são ilustrativos.`,ok:'Enviar'})){f.sit='Enviado à concessionária';renderFinFech();audAdd('Enviou fechamento',f.mes+' · '+brl(f.tot)+' · financeiro da Way','Financeiro');toast('Fechamento enviado ao financeiro da Way');}}
+  else{f.sit='Aprovado';renderFinFech();audAdd('Registrou aprovação do fechamento',f.mes+' · '+brl(f.tot),'Financeiro');toast('Fechamento marcado como aprovado');}});
+$('#btn-fin-pdf').addEventListener('click',e=>busy(e.currentTarget,900,()=>{audAdd('Exportou relatório financeiro','relatorio-financeiro-way-2026-11.pdf','Financeiro');toast('relatorio-financeiro-way-2026-11.pdf pronto · 4 páginas','info');}));
+$('#btn-fin-xls').addEventListener('click',e=>busy(e.currentTarget,900,()=>{audAdd('Exportou relatório financeiro','relatorio-financeiro-way-2026-11.xlsx · detalhe por placa e por mensagem','Financeiro');toast('relatorio-financeiro-way-2026-11.xlsx pronto · abas Resumo, Custo, Canais, Grupos e Detalhe','info');}));
+$('#fin-periodo').addEventListener('change',e=>{if(e.target.value!=='piloto'){toast('No mockup os números são sempre os do piloto inteiro (28/10 a 07/11)','info');e.target.value='piloto';}});
+hooks.financeiro=params=>{if(params.get('evo')==='base'||params.get('evo')==='semana')finEvo=params.get('evo');renderFinEvo();renderFinFech();if(params.get('fech')==='enviado'){FIN_FECH[0].sit='Enviado à concessionária';renderFinFech();}};
+renderFinEvo();renderFinFech();
+$('#btn-modelo-layout').addEventListener('click',()=>toast('modelo-placas-com-cadastro.xlsx baixado · 17 colunas e uma linha de exemplo','info'));
 
 /* ---------- início ---------- */
 const savedGuide=store.get('vp_guia')==='1';if(savedGuide)setGuide(true);
